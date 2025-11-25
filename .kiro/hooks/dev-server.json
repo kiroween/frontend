@@ -1,0 +1,9 @@
+{
+  "name": "Start Dev Server",
+  "description": "개발 서버를 시작합니다",
+  "trigger": "manual",
+  "action": {
+    "type": "command",
+    "command": "npm run dev"
+  }
+}
