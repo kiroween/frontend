@@ -16,7 +16,7 @@ export default function LandingPage() {
       <div className="relative z-20 flex items-center justify-center min-h-screen">
         <div className="text-center space-y-8 px-4 animate-fade-in">
           {/* Stone Gate */}
-          <div className="stone-gate relative border-4 border-stone-700/80 rounded-lg p-8 md:p-16 bg-gradient-to-b from-stone-800/40 to-stone-900/60 backdrop-blur-md shadow-2xl">
+          <div className="stone-gate relative border-4 border-stone-700/80 rounded-lg p-8 md:p-16 bg-gradient-to-b from-stone-800/20 to-stone-900/30 backdrop-blur-md shadow-2xl">
             {/* Ancient Runes Decoration */}
             <div className="absolute top-4 left-4 text-stone-600 text-xs opacity-50">⚝</div>
             <div className="absolute top-4 right-4 text-stone-600 text-xs opacity-50">⚝</div>
