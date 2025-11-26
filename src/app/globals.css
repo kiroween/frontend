@@ -50,6 +50,11 @@
   --soul-blue: #4a90e2;
   --seal-gold: #ffd700;
 
+  /* Animation Durations */
+  --duration-slow: 1000ms;
+  --duration-normal: 500ms;
+  --duration-fast: 300ms;
+
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -126,6 +131,7 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-inter), sans-serif;
+    overflow-x: hidden;
   }
 
   h1,
@@ -135,5 +141,135 @@
   h5,
   h6 {
     font-family: var(--font-cinzel), serif;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Performance optimizations */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Accessibility improvements */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* TimeGrave Custom Animations */
+  .animate-fog {
+    animation: fog-drift 20s ease-in-out infinite;
+  }
+
+  .animate-soul-glow {
+    animation: soul-glow 3s ease-in-out infinite;
+  }
+
+  .animate-fade-in {
+    animation: fade-in var(--duration-normal) ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slide-up var(--duration-normal) ease-out;
+  }
+
+  @keyframes fog-drift {
+    0%, 100% {
+      transform: translate(0, 0);
+      opacity: 0.3;
+    }
+    50% {
+      transform: translate(20px, -20px);
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes soul-glow {
+    0%, 100% {
+      opacity: 0.6;
+      filter: blur(8px);
+    }
+    50% {
+      opacity: 1;
+      filter: blur(4px);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* Glow Effects */
+  .glow-soul {
+    box-shadow: 0 0 20px var(--soul-blue), 0 0 40px var(--soul-blue);
+  }
+
+  .glow-seal {
+    box-shadow: 0 0 20px var(--seal-gold), 0 0 40px var(--seal-gold);
+  }
+
+  /* Fog Overlay */
+  .fog-overlay {
+    background: radial-gradient(
+      circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      transparent 0%,
+      var(--fog-gray) 50%
+    );
+    opacity: 0.3;
+  }
+
+  /* Performance optimizations */
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .will-change-opacity {
+    will-change: opacity;
+  }
+
+  /* Responsive utilities */
+  @media (max-width: 640px) {
+    .text-responsive-xl {
+      font-size: 2rem;
+    }
+    .text-responsive-2xl {
+      font-size: 2.5rem;
+    }
+  }
+
+  @media (min-width: 641px) {
+    .text-responsive-xl {
+      font-size: 3rem;
+    }
+    .text-responsive-2xl {
+      font-size: 4rem;
+    }
   }
 }

@@ -2,25 +2,24 @@
 
 > 과거를 묻고, 미래를 부활하라
 
-TimeGrave는 미래에 열리는 타임캡슐 서비스입니다. 신비롭고 영적인 경험을 통해 당신의 기억을 묻고, 정해진 시간이 되면 부활시킬 수 있습니다.
+TimeGrave는 기억의 사후 세계를 컨셉으로 한 타임캡슐 서비스입니다.
+
+## ✨ 주요 기능
+
+- **매장 의식**: 소중한 기억을 봉인하고 미래의 날짜를 지정
+- **크립텍스 날짜 선택**: 신비로운 크립텍스 스타일의 날짜 선택기
+- **영혼의 묘지**: 봉인된 기억들을 한눈에 관리
+- **부활 애니메이션**: 시간이 되면 극적인 애니메이션과 함께 기억 부활
+- **세피아 효과**: 낡은 사진처럼 시간의 흔적이 담긴 콘텐츠 표시
 
 ## 🎨 디자인 컨셉
 
 **Ethereal & Mystical (신비롭고 영적인)**
 
-단순한 공포가 아닌, 죽음과 기억에 대한 경외감을 주는 디자인을 지향합니다.
-
-### 컬러 팔레트
-
-- **Deep Void** (#050505): 깊이감 있는 칠흑색 배경
-- **Fog Gray** (#2a2a2a): 은은한 안개 효과
-- **Soul Blue** (#4a90e2): 영혼의 푸른 빛
-- **Seal Gold** (#ffd700): 봉인의 금색
-
-### 타이포그래피
-
-- 제목: Cinzel (명조체)
-- 본문: Inter (고딕체)
+- 단순한 공포가 아닌, 죽음과 기억에 대한 경외감
+- 어두운 배경에 푸른 영혼의 빛
+- 고대 돌문과 비석 모티브
+- 부드럽고 몰입감 있는 애니메이션
 
 ## 🚀 기술 스택
 
@@ -28,76 +27,104 @@ TimeGrave는 미래에 열리는 타임캡슐 서비스입니다. 신비롭고 �
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS v4
 - **UI Components**: shadcn/ui
-- **Runtime**: React 19
+- **Fonts**: Cinzel (제목), Inter (본문)
 
-## 📦 시작하기
-
-### 설치
+## 📦 설치 및 실행
 
 ```bash
+# 의존성 설치
 npm install
-```
 
-### 개발 서버 실행
-
-```bash
+# 개발 서버 실행
 npm run dev
-```
 
-브라우저에서 [http://localhost:3000](http://localhost:3000)을 열어 확인하세요.
-
-### 빌드
-
-```bash
+# 빌드
 npm run build
+
+# 프로덕션 실행
+npm start
 ```
 
-## 🗺️ 주요 화면
+## 🗂️ 프로젝트 구조
+
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── page.tsx           # 랜딩 페이지 (The Gate)
+│   ├── graveyard/         # 묘지 대시보드
+│   ├── create/            # 타임캡슐 생성
+│   └── view/[id]/         # 타임캡슐 열람
+├── components/
+│   ├── animations/        # 애니메이션 컴포넌트
+│   ├── graveyard/         # 묘지 관련 컴포넌트
+│   ├── create/            # 생성 관련 컴포넌트
+│   ├── resurrection/      # 부활 관련 컴포넌트
+│   ├── ui/                # 공통 UI 컴포넌트
+│   ├── layout/            # 레이아웃 컴포넌트
+│   └── common/            # 공통 컴포넌트
+└── lib/                   # 유틸리티 함수
+```
+
+## 🎯 주요 화면
 
 ### Scene 1: The Gate (랜딩 페이지)
+- 마우스 반응형 안개 효과
+- Canvas 기반 영혼의 입자 애니메이션
+- 고대 돌문 디자인
 
-- 어두운 안개와 영혼의 입자
-- 고대 돌문 연출
-- "ENTER GRAVE" 버튼
-
-### Scene 2: The Graveyard (나의 묘지)
-
+### Scene 2: The Graveyard (묘지)
 - 3D 비석 그리드 레이아웃
-- 잠긴/열린 비석 상태 표시
-- 날짜 카운트다운
+- 잠긴 비석: 쇠사슬과 어두운 느낌
+- 열린 비석: 금이 간 틈으로 빛이 새어나옴
 
 ### Scene 3: The Ritual (매장 의식)
-
+- 3단계 생성 플로우
 - 크립텍스 스타일 날짜 선택기
-- 파일 업로드
-- 친구 초대 기능
+- 드래그 앤 드롭 파일 업로드
 
 ### Scene 4: Resurrection (부활)
+- 균열 → 빛 → 화이트아웃 애니메이션
+- 세피아 톤의 낡은 사진 효과
+- 다운로드 및 다시 묻기 기능
 
-- 화이트아웃 효과
-- AI 처리된 콘텐츠
-- 다운로드 기능
+## 🎨 컬러 팔레트
 
-## 📁 프로젝트 구조
-
-```
-.
-├── .kiro/                  # Kirowin 해커톤 요구사항
-│   ├── specs/             # 프로젝트 스펙
-│   ├── hooks/             # Agent hooks
-│   └── steering/          # 개발 가이드라인
-├── src/
-│   ├── app/               # Next.js App Router
-│   ├── components/        # React 컴포넌트
-│   └── lib/               # 유틸리티
-└── public/                # 정적 파일
+```css
+--deep-void: #050505;    /* 배경 - 깊이감 있는 칠흑색 */
+--fog-gray: #2a2a2a;     /* 안개 효과 */
+--soul-blue: #4a90e2;    /* 영혼의 빛 */
+--seal-gold: #ffd700;    /* 봉인/중요 버튼 */
 ```
 
-## 🏆 Kirowin Hackathon
+## 📱 반응형 디자인
 
-이 프로젝트는 Kirowin 해커톤을 위해 제작되었습니다.
-`.kiro` 디렉토리는 specs, hooks, steering 사용 내역을 보여주기 위해 포함되어 있습니다.
+- 모바일, 태블릿, 데스크톱 완벽 지원
+- 터치 인터랙션 최적화
+- 성능 최적화된 애니메이션
+
+## ♿ 접근성
+
+- ARIA 레이블 적용
+- 키보드 네비게이션 지원
+- prefers-reduced-motion 지원
+- 시맨틱 HTML 구조
+
+## 🔧 최적화
+
+- 폰트 최적화 (display: swap)
+- 이미지 lazy loading
+- Canvas 애니메이션 최적화
+- 이벤트 throttling/debouncing
+- will-change 속성 활용
 
 ## 📄 라이선스
 
 MIT License
+
+## 👥 팀
+
+TimeGrave Team
+
+---
+
+**기억의 사후 세계에 오신 것을 환영합니다.**
