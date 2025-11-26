@@ -3,21 +3,25 @@
 import { Button } from "@/components/ui/Button";
 
 interface ContentViewerProps {
+  id?: string | string[];
   title: string;
   message: string;
   date: string;
   files: Array<{ name: string; url: string; type: string }>;
   onRebury?: () => void;
   onDownload?: () => void;
+  onShare?: () => void;
 }
 
 export function ContentViewer({
+  id,
   title,
   message,
   date,
   files,
   onRebury,
   onDownload,
+  onShare,
 }: ContentViewerProps) {
   return (
     <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
@@ -83,6 +87,16 @@ export function ContentViewer({
 
           {/* Actions */}
           <div className="flex gap-4 pt-6 border-t-2 border-amber-900/20">
+            {onShare && (
+              <Button
+                variant="ghost"
+                size="lg"
+                onClick={onShare}
+                className="flex-1 bg-amber-100 text-amber-900 border-2 border-amber-900/30 hover:bg-amber-200"
+              >
+                🔗 공유
+              </Button>
+            )}
             <Button
               variant="ghost"
               size="lg"

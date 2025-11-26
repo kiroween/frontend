@@ -4,6 +4,7 @@ import SoulParticles from "@/components/animations/SoulParticles";
 import FogEffect from "@/components/animations/FogEffect";
 import { TombstoneCard } from "@/components/graveyard/TombstoneCard";
 import { Button } from "@/components/ui/Button";
+import { Header } from "@/components/layout/Header";
 import Link from "next/link";
 
 export default function GraveyardPage() {
@@ -39,8 +40,9 @@ export default function GraveyardPage() {
     <main className="relative min-h-screen overflow-hidden bg-[var(--deep-void)]">
       <SoulParticles />
       <FogEffect />
+      <Header />
 
-      <div className="relative z-20 container mx-auto px-4 py-16">
+      <div className="relative z-20 container mx-auto px-4 py-16 pt-24">
         {/* Header */}
         <div className="text-center mb-16 animate-fade-in">
           <h1 className="font-cinzel text-5xl md:text-6xl text-stone-300 mb-4 tracking-wider">

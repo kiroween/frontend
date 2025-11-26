@@ -6,6 +6,8 @@ import SoulParticles from "@/components/animations/SoulParticles";
 import FogEffect from "@/components/animations/FogEffect";
 import { ResurrectionAnimation } from "@/components/resurrection/ResurrectionAnimation";
 import { ContentViewer } from "@/components/resurrection/ContentViewer";
+import { ShareButton } from "@/components/share";
+import { DownloadButton } from "@/components/download";
 
 export default function ViewPage() {
   const router = useRouter();
@@ -44,10 +46,26 @@ export default function ViewPage() {
     router.push("/graveyard");
   };
 
-  const handleDownload = () => {
-    // TODO: 다운로드 로직
-    console.log("Downloading capsule:", capsuleData.id);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [showDownloadModal, setShowDownloadModal] = useState(false);
+
+  const handleShare = () => {
+    setShowShareModal(true);
   };
+
+  const handleDownload = () => {
+    setShowDownloadModal(true);
+  };
+
+  // Convert files to TimeCapsuleContent format
+  const contents = capsuleData.files.map((file, index) => ({
+    id: `file-${index}`,
+    type: file.type.startsWith("image/") ? "image" as const : "file" as const,
+    name: file.name,
+    url: file.url,
+    size: 0, // TODO: Get actual size from API
+    createdAt: new Date(),
+  }));
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[var(--deep-void)]">
@@ -65,7 +83,31 @@ export default function ViewPage() {
               {...capsuleData}
               onRebury={handleRebury}
               onDownload={handleDownload}
+              onShare={handleShare}
             />
+
+            {/* Share and Download Modals */}
+            <div className="fixed bottom-8 right-8 flex gap-4 z-50">
+              {showShareModal && (
+                <ShareButton
+                  timeCapsuleId={String(capsuleData.id)}
+                  title={capsuleData.title}
+                  variant="seal"
+                  size="lg"
+                />
+              )}
+              {showDownloadModal && (
+                <DownloadButton
+                  timeCapsuleId={String(capsuleData.id)}
+                  contents={contents}
+                  timeCapsuleTitle={capsuleData.title}
+                  timeCapsuleDescription={capsuleData.message}
+                  openDate={new Date(capsuleData.date)}
+                  variant="seal"
+                  size="lg"
+                />
+              )}
+            </div>
           </div>
         </div>
       )}

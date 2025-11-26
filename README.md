@@ -6,11 +6,19 @@ TimeGrave는 기억의 사후 세계를 컨셉으로 한 타임캡슐 서비스�
 
 ## ✨ 주요 기능
 
+### 핵심 기능
 - **매장 의식**: 소중한 기억을 봉인하고 미래의 날짜를 지정
 - **크립텍스 날짜 선택**: 신비로운 크립텍스 스타일의 날짜 선택기
 - **영혼의 묘지**: 봉인된 기억들을 한눈에 관리
 - **부활 애니메이션**: 시간이 되면 극적인 애니메이션과 함께 기억 부활
 - **세피아 효과**: 낡은 사진처럼 시간의 흔적이 담긴 콘텐츠 표시
+
+### 소셜 기능 🆕
+- **공유 기능**: 타임캡슐을 친구들과 공유 (링크, 소셜 미디어)
+- **협력자 관리**: 친구들을 초대하여 함께 타임캡슐 만들기
+- **알림 시스템**: 타임캡슐 오픈, 초대, 활동 알림 (인앱, 푸시, 이메일)
+- **다운로드 기능**: 타임캡슐 콘텐츠를 ZIP, PDF로 다운로드
+- **실시간 알림**: 브라우저 푸시 알림 지원
 
 ## 🎨 디자인 컨셉
 
@@ -28,6 +36,9 @@ TimeGrave는 기억의 사후 세계를 컨셉으로 한 타임캡슐 서비스�
 - **Styling**: Tailwind CSS v4
 - **UI Components**: shadcn/ui
 - **Fonts**: Cinzel (제목), Inter (본문)
+- **State Management**: React Context API
+- **Testing**: Vitest, Testing Library
+- **File Processing**: JSZip (다운로드)
 
 ## 📦 설치 및 실행
 
@@ -38,12 +49,26 @@ npm install
 # 개발 서버 실행
 npm run dev
 
+# 테스트 실행
+npm test
+
 # 빌드
 npm run build
 
 # 프로덕션 실행
 npm start
 ```
+
+### 환경 변수 설정
+
+`.env.local` 파일을 생성하고 다음 변수를 설정하세요:
+
+```env
+# API Base URL (선택사항 - 없으면 Mock API 사용)
+NEXT_PUBLIC_API_URL=http://localhost:3001/api
+```
+
+자세한 API 연동 방법은 [API_INTEGRATION.md](./API_INTEGRATION.md)를 참고하세요.
 
 ## 🗂️ 프로젝트 구조
 
@@ -53,16 +78,32 @@ src/
 │   ├── page.tsx           # 랜딩 페이지 (The Gate)
 │   ├── graveyard/         # 묘지 대시보드
 │   ├── create/            # 타임캡슐 생성
-│   └── view/[id]/         # 타임캡슐 열람
+│   ├── view/[id]/         # 타임캡슐 열람
+│   ├── shared/[shareId]/  # 공유된 타임캡슐
+│   ├── notifications/     # 알림 페이지
+│   └── settings/          # 설정 페이지
 ├── components/
 │   ├── animations/        # 애니메이션 컴포넌트
 │   ├── graveyard/         # 묘지 관련 컴포넌트
 │   ├── create/            # 생성 관련 컴포넌트
 │   ├── resurrection/      # 부활 관련 컴포넌트
+│   ├── share/             # 공유 관련 컴포넌트 🆕
+│   ├── notifications/     # 알림 관련 컴포넌트 🆕
+│   ├── download/          # 다운로드 관련 컴포넌트 🆕
 │   ├── ui/                # 공통 UI 컴포넌트
 │   ├── layout/            # 레이아웃 컴포넌트
-│   └── common/            # 공통 컴포넌트
+│   ├── common/            # 공통 컴포넌트
+│   └── providers/         # Context Providers 🆕
+├── contexts/              # React Context 🆕
+│   ├── NotificationContext.tsx
+│   └── ToastContext.tsx
 └── lib/                   # 유틸리티 함수
+    ├── api/               # API 서비스 레이어 🆕
+    ├── types/             # TypeScript 타입 정의 🆕
+    ├── hooks/             # 커스텀 훅 🆕
+    ├── download.ts        # 다운로드 유틸리티 🆕
+    ├── permissions.ts     # 권한 관리 🆕
+    └── security.ts        # 보안 유틸리티 🆕
 ```
 
 ## 🎯 주요 화면
