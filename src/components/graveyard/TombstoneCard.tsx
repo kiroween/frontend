@@ -1,23 +1,23 @@
 "use client";
 
 import { Button } from "@/components/ui/Button";
+import { TimeCapsule } from "@/lib/types/timecapsule";
 
 interface TombstoneCardProps {
-  id: number;
-  date: string;
-  locked: boolean;
-  daysLeft: number;
-  title?: string;
+  timeCapsule: TimeCapsule;
+  daysRemaining?: number;
   onOpen?: () => void;
 }
 
 export function TombstoneCard({
-  date,
-  locked,
-  daysLeft,
-  title,
+  timeCapsule,
+  daysRemaining,
   onOpen,
 }: TombstoneCardProps) {
+  const locked = timeCapsule.status === 'locked';
+  const daysLeft = daysRemaining || 0;
+  const date = timeCapsule.openDate.toLocaleDateString('ko-KR');
+  const title = timeCapsule.title;
   return (
     <div
       className={`

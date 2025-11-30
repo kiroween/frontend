@@ -1,28 +1,28 @@
 "use client";
 
 import { Button } from "@/components/ui/Button";
+import { TimeCapsule } from "@/lib/types/timecapsule";
 
 interface ContentViewerProps {
-  id?: string | string[];
-  title: string;
-  message: string;
-  date: string;
-  files: Array<{ name: string; url: string; type: string }>;
+  timeCapsule: TimeCapsule;
+  daysRemaining?: number;
   onRebury?: () => void;
   onDownload?: () => void;
   onShare?: () => void;
 }
 
 export function ContentViewer({
-  id,
-  title,
-  message,
-  date,
-  files,
+  timeCapsule,
+  daysRemaining,
   onRebury,
   onDownload,
   onShare,
 }: ContentViewerProps) {
+  const isLocked = timeCapsule.status === 'locked';
+  const title = timeCapsule.title;
+  const message = timeCapsule.description;
+  const date = timeCapsule.createdAt.toLocaleDateString('ko-KR');
+  const files = timeCapsule.contents;
   return (
     <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
       {/* Sepia Filter Overlay */}
@@ -44,18 +44,43 @@ export function ContentViewer({
             </p>
           </div>
 
-          {/* Message */}
-          <div className="bg-amber-50/50 border-2 border-amber-900/20 rounded-lg p-6">
-            <h3 className="font-cinzel text-xl text-amber-900 mb-4">
-              과거로부터의 메시지
-            </h3>
-            <p className="text-amber-800 whitespace-pre-wrap leading-relaxed">
-              {message}
-            </p>
-          </div>
+          {/* Message or Locked Status */}
+          {isLocked ? (
+            <div className="bg-stone-900/50 border-2 border-stone-700 rounded-lg p-6">
+              <div className="text-center space-y-4">
+                <div className="text-6xl">🔒</div>
+                <h3 className="font-cinzel text-2xl text-stone-300">
+                  봉인된 기억
+                </h3>
+                <p className="text-stone-400">
+                  이 타임캡슐은 아직 잠겨있습니다
+                </p>
+                {daysRemaining !== undefined && (
+                  <div className="space-y-2">
+                    <p className="text-[var(--soul-blue)] text-4xl font-bold">
+                      {daysRemaining}일
+                    </p>
+                    <p className="text-stone-500 text-sm">남은 시간</p>
+                  </div>
+                )}
+                <p className="text-stone-500 text-sm">
+                  잠금 해제일: {timeCapsule.openDate.toLocaleDateString('ko-KR')}
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="bg-amber-50/50 border-2 border-amber-900/20 rounded-lg p-6">
+              <h3 className="font-cinzel text-xl text-amber-900 mb-4">
+                과거로부터의 메시지
+              </h3>
+              <p className="text-amber-800 whitespace-pre-wrap leading-relaxed">
+                {message}
+              </p>
+            </div>
+          )}
 
-          {/* Files */}
-          {files.length > 0 && (
+          {/* Files - Only show if unlocked */}
+          {!isLocked && files.length > 0 && (
             <div className="space-y-4">
               <h3 className="font-cinzel text-xl text-amber-900">
                 봉인된 기억들 ({files.length})
@@ -63,12 +88,12 @@ export function ContentViewer({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {files.map((file, index) => (
                   <div
-                    key={index}
+                    key={file.id || index}
                     className="bg-amber-50/50 border-2 border-amber-900/20 rounded-lg p-4 hover:border-amber-900/40 transition-colors"
                   >
                     <div className="flex items-center gap-3">
                       <div className="text-3xl">
-                        {file.type.startsWith("image/") ? "🖼️" : "📄"}
+                        {file.type === 'image' ? "🖼️" : "📄"}
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-amber-900 font-medium truncate">
@@ -85,34 +110,47 @@ export function ContentViewer({
             </div>
           )}
 
-          {/* Actions */}
+          {/* Actions - Only show full actions if unlocked */}
           <div className="flex gap-4 pt-6 border-t-2 border-amber-900/20">
-            {onShare && (
+            {!isLocked ? (
+              <>
+                {onShare && (
+                  <Button
+                    variant="ghost"
+                    size="lg"
+                    onClick={onShare}
+                    className="flex-1 bg-amber-100 text-amber-900 border-2 border-amber-900/30 hover:bg-amber-200"
+                  >
+                    🔗 공유
+                  </Button>
+                )}
+                <Button
+                  variant="ghost"
+                  size="lg"
+                  onClick={onDownload}
+                  className="flex-1 bg-amber-100 text-amber-900 border-2 border-amber-900/30 hover:bg-amber-200"
+                >
+                  💾 다운로드
+                </Button>
+                <Button
+                  variant="seal"
+                  size="lg"
+                  onClick={onRebury}
+                  className="flex-1"
+                >
+                  🪦 다시 묻기
+                </Button>
+              </>
+            ) : (
               <Button
                 variant="ghost"
                 size="lg"
-                onClick={onShare}
-                className="flex-1 bg-amber-100 text-amber-900 border-2 border-amber-900/30 hover:bg-amber-200"
+                onClick={() => window.history.back()}
+                className="flex-1 bg-stone-800 text-stone-300 border-2 border-stone-700 hover:bg-stone-700"
               >
-                🔗 공유
+                ← 돌아가기
               </Button>
             )}
-            <Button
-              variant="ghost"
-              size="lg"
-              onClick={onDownload}
-              className="flex-1 bg-amber-100 text-amber-900 border-2 border-amber-900/30 hover:bg-amber-200"
-            >
-              💾 다운로드
-            </Button>
-            <Button
-              variant="seal"
-              size="lg"
-              onClick={onRebury}
-              className="flex-1"
-            >
-              🪦 다시 묻기
-            </Button>
           </div>
         </div>
       </div>

@@ -38,11 +38,24 @@ export default function LandingPage() {
               당신의 과거를 봉인하고, 정해진 시간에 부활시키세요.
             </p>
 
-            <Link href="/graveyard">
-              <Button variant="seal" size="lg" className="animate-slide-up">
-                ENTER GRAVE
-              </Button>
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link href="/signup">
+                <Button variant="seal" size="lg" className="animate-slide-up">
+                  회원가입
+                </Button>
+              </Link>
+              <Link href="/login">
+                <Button variant="seal" size="lg" className="animate-slide-up" style={{ animationDelay: "100ms" }}>
+                  로그인
+                </Button>
+              </Link>
+            </div>
+            
+            <div className="mt-6">
+              <Link href="/graveyard" className="text-stone-500 hover:text-stone-400 text-sm transition-colors">
+                또는 둘러보기 →
+              </Link>
+            </div>
           </div>
         </div>
       </div>

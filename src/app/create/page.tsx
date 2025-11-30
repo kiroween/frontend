@@ -7,9 +7,12 @@ import { CryptexDatePicker } from "@/components/create/CryptexDatePicker";
 import { FileUpload } from "@/components/create/FileUpload";
 import { Button } from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
+import { gravesApi } from "@/lib/api/graves";
+import { useToast } from "@/contexts/ToastContext";
 
 export default function CreatePage() {
   const router = useRouter();
+  const { showToast } = useToast();
   const [step, setStep] = useState(1);
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
@@ -20,18 +23,39 @@ export default function CreatePage() {
   const handleCreate = async () => {
     setIsCreating(true);
     
-    // TODO: API 연동
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    
-    console.log({
-      title,
-      message,
-      date: selectedDate,
-      files: files.length,
-    });
-
-    setIsCreating(false);
-    router.push("/graveyard");
+    try {
+      // Convert selectedDate string to Date object
+      const unlockDate = new Date(selectedDate);
+      
+      // Validate unlock date is in the future
+      if (unlockDate <= new Date()) {
+        showToast("잠금 해제 날짜는 미래여야 합니다", "error");
+        setIsCreating(false);
+        return;
+      }
+      
+      // Call the real API
+      const response = await gravesApi.create({
+        title,
+        content: message,
+        unlockDate,
+      });
+      
+      // Show success message
+      showToast("타임캡슐이 성공적으로 생성되었습니다", "success");
+      
+      // Navigate to graveyard page
+      router.push("/graveyard");
+    } catch (error) {
+      // Handle API errors
+      const errorMessage = 
+        error && typeof error === 'object' && 'message' in error 
+          ? String(error.message) 
+          : "타임캡슐 생성 중 오류가 발생했습니다";
+      
+      showToast(errorMessage, "error");
+      setIsCreating(false);
+    }
   };
 
   return (
