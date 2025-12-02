@@ -13,7 +13,7 @@ export function FileUpload({ onFilesChange }: FileUploadProps) {
 
   const handleFileChange = (newFiles: FileList | null) => {
     if (!newFiles) return;
-    
+
     const fileArray = Array.from(newFiles);
     setFiles((prev) => [...prev, ...fileArray]);
     onFilesChange([...files, ...fileArray]);
@@ -44,10 +44,10 @@ export function FileUpload({ onFilesChange }: FileUploadProps) {
     <div className="space-y-4">
       <div className="text-center mb-4">
         <h3 className="font-cinzel text-2xl text-stone-300 mb-2">
-          기억을 담으세요
+          Preserve Your Memories
         </h3>
         <p className="text-stone-500 text-sm">
-          사진, 영상, 문서 등 소중한 기억들
+          Photos, videos, documents, and precious memories
         </p>
       </div>
 
@@ -70,10 +70,10 @@ export function FileUpload({ onFilesChange }: FileUploadProps) {
         <div className="text-center">
           <div className="text-6xl mb-4">📦</div>
           <p className="text-stone-400 mb-2">
-            파days을 드래그하거나 클릭하여 선택
+            Drag files here or click to select
           </p>
           <p className="text-stone-600 text-sm">
-            이미지, 비디오, 문서 등 모든 파days
+            Images, videos, documents, and all file types
           </p>
         </div>
         <input
@@ -89,7 +89,7 @@ export function FileUpload({ onFilesChange }: FileUploadProps) {
       {files.length > 0 && (
         <div className="space-y-2">
           <h4 className="font-cinzel text-lg text-stone-400">
-            선택된 파days ({files.length})
+            Selected Files ({files.length})
           </h4>
           <div className="space-y-2 max-h-60 overflow-y-auto">
             {files.map((file, index) => (

@@ -7,21 +7,41 @@ interface CryptexDatePickerProps {
 }
 
 export function CryptexDatePicker({ onDateChange }: CryptexDatePickerProps) {
-  const currentYear = new Date().getFullYear();
-  const [year, setYear] = useState(currentYear + 1);
-  const [month, setMonth] = useState(1);
-  const [day, setDay] = useState(1);
+  // Get tomorrow's date as the minimum selectable date
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
 
-  const years = Array.from({ length: 10 }, (_, i) => currentYear + i + 1);
+  const currentYear = new Date().getFullYear();
+  const [year, setYear] = useState(tomorrow.getFullYear());
+  const [month, setMonth] = useState(tomorrow.getMonth() + 1);
+  const [day, setDay] = useState(tomorrow.getDate());
+
+  const years = Array.from({ length: 10 }, (_, i) => currentYear + i);
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
 
   const handleChange = (newYear: number, newMonth: number, newDay: number) => {
+    // Validate that the selected date is not in the past
+    const selectedDate = new Date(newYear, newMonth - 1, newDay);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // If selected date is today or in the past, set to tomorrow
+    if (selectedDate <= today) {
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      newYear = tomorrow.getFullYear();
+      newMonth = tomorrow.getMonth() + 1;
+      newDay = tomorrow.getDate();
+    }
+
     setYear(newYear);
     setMonth(newMonth);
     setDay(newDay);
-    
-    const dateStr = `${newYear}-${String(newMonth).padStart(2, "0")}-${String(newDay).padStart(2, "0")}`;
+
+    const dateStr = `${newYear}-${String(newMonth).padStart(2, "0")}-${String(
+      newDay
+    ).padStart(2, "0")}`;
     onDateChange(dateStr);
   };
 
@@ -29,17 +49,20 @@ export function CryptexDatePicker({ onDateChange }: CryptexDatePickerProps) {
     <div className="cryptex-container">
       <div className="text-center mb-8">
         <h3 className="font-cinzel text-2xl text-stone-300 mb-2">
-          부활의 날을 선택하세요
+          Choose the Resurrection Date
         </h3>
         <p className="text-stone-500 text-sm">
-          크립텍스를 돌려 날짜를 맞추세요
+          Turn the cryptex to set the date
+        </p>
+        <p className="text-stone-400 text-xs mt-2 italic">
+          * Past dates will automatically be set to tomorrow
         </p>
       </div>
 
       <div className="flex justify-center items-center gap-4 mb-8">
         {/* Year Cylinder */}
         <div className="cryptex-cylinder">
-          <div className="cryptex-label">년</div>
+          <div className="cryptex-label">Year</div>
           <select
             value={year}
             onChange={(e) => handleChange(Number(e.target.value), month, day)}
@@ -55,7 +78,7 @@ export function CryptexDatePicker({ onDateChange }: CryptexDatePickerProps) {
 
         {/* Month Cylinder */}
         <div className="cryptex-cylinder">
-          <div className="cryptex-label">월</div>
+          <div className="cryptex-label">Month</div>
           <select
             value={month}
             onChange={(e) => handleChange(year, Number(e.target.value), day)}
@@ -71,7 +94,7 @@ export function CryptexDatePicker({ onDateChange }: CryptexDatePickerProps) {
 
         {/* Day Cylinder */}
         <div className="cryptex-cylinder">
-          <div className="cryptex-label">days</div>
+          <div className="cryptex-label">Day</div>
           <select
             value={day}
             onChange={(e) => handleChange(year, month, Number(e.target.value))}
@@ -90,7 +113,8 @@ export function CryptexDatePicker({ onDateChange }: CryptexDatePickerProps) {
       <div className="text-center">
         <div className="inline-block bg-stone-900/60 border-2 border-[var(--seal-gold)] rounded-lg px-8 py-4">
           <div className="font-cinzel text-3xl text-[var(--seal-gold)] tracking-wider">
-            {year}.{String(month).padStart(2, "0")}.{String(day).padStart(2, "0")}
+            {year}.{String(month).padStart(2, "0")}.
+            {String(day).padStart(2, "0")}
           </div>
         </div>
       </div>
@@ -128,23 +152,20 @@ export function CryptexDatePicker({ onDateChange }: CryptexDatePickerProps) {
           text-align: center;
           cursor: pointer;
           transition: all 0.3s ease;
-          box-shadow: 
-            inset 0 2px 4px rgba(0, 0, 0, 0.5),
+          box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5),
             0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .cryptex-select:hover {
           border-color: var(--seal-gold);
-          box-shadow: 
-            inset 0 2px 4px rgba(0, 0, 0, 0.5),
+          box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5),
             0 0 20px rgba(255, 215, 0, 0.3);
         }
 
         .cryptex-select:focus {
           outline: none;
           border-color: var(--seal-gold);
-          box-shadow: 
-            inset 0 2px 4px rgba(0, 0, 0, 0.5),
+          box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5),
             0 0 30px rgba(255, 215, 0, 0.5);
         }
       `}</style>

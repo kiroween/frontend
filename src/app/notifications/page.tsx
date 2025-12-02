@@ -18,22 +18,22 @@ export default function NotificationsPage() {
             <Link href="/graveyard">
               <Button variant="ghost" size="sm" className="mb-4 flex items-center gap-2">
                 <ArrowLeft size={16} />
-                돌아가기
+                Go Back
               </Button>
             </Link>
             
             <h1 className="font-cinzel text-4xl text-stone-200 mb-2">
-              모든 알림
+              All Notifications
             </h1>
             <p className="text-stone-400">
-              받은 알림을 모두 Confirm하세요
+              Check all your notifications
             </p>
           </div>
 
           <Link href="/settings/notifications">
             <Button variant="ghost" size="md" className="flex items-center gap-2">
               <Settings size={16} />
-              설정
+              Settings
             </Button>
           </Link>
         </div>

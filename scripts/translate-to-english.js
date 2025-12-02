@@ -157,6 +157,86 @@ const translations = {
   "🪦 다시 묻기": "🪦 Rebury",
   "← 돌아가기": "← Go Back",
   "시간이 흘러도 기억은 남습니다": "Memories remain even as time passes",
+
+  // Additional UI translations
+  "매장 의식": "Burial Ritual",
+  "기억을 봉인하고 미래에 부활시키세요":
+    "Seal your memories and resurrect them in the future",
+  "Time Capsule 제목": "Time Capsule Title",
+  "예: 2025년의 나에게": "e.g., To myself in 2025",
+  "미래의 나에게 남길 메시지": "Message to Future Self",
+  "미래의 당신에게 전하고 싶은 말을 적어주세요...":
+    "Write a message to your future self...",
+  "다음 단계": "Next Step",
+  이전: "Previous",
+  요약: "Summary",
+  제목: "Title",
+  파days: "Files",
+  개: "",
+  "봉인 중...": "Sealing...",
+  "기억 봉인하기": "Seal Memory",
+  "Time Capsule이 성공적으로 생성되었습니다":
+    "Time capsule created successfully",
+  "Time Capsule 생성 중 오류가 발생했습니다": "Failed to create time capsule",
+
+  // Not found page
+  "길을 잃으셨나요?": "Lost your way?",
+  "이 페이지는 아직 묻히지 않았거나 이미 사라진 기억입니다.":
+    "This page is a memory not yet buried or already vanished.",
+  "묘지로 돌아가기": "Return to Graveyard",
+
+  // Notifications page
+  돌아가기: "Go Back",
+  "모든 알림": "All Notifications",
+  "받은 알림을 모두 Confirm하세요": "Check all your notifications",
+  "알림 설정": "Notification Settings",
+  "알림 유형과 수신 방법을 설정하세요":
+    "Configure notification types and delivery methods",
+  설정: "Settings",
+
+  // Shared page
+  "TimeGrave에서 Share된 Time Capsule을 Confirm해보세요.":
+    "Check out the shared time capsule from TimeGrave.",
+  "이 페이지는 백엔드 API 연동 후 완성됩니다.":
+    "This page will be completed after backend API integration.",
+  "Time Capsule 데이터를 불러오는 중...": "Loading time capsule data...",
+
+  // Layout metadata
+  "기억의 사후 세계, TimeGrave에 오신 것을 환영합니다.":
+    "Welcome to TimeGrave, the afterlife of memories.",
+  추억: "memories",
+  미래: "future",
+
+  // Notification settings
+  "Settings이 Save되었습니다.": "Settings saved successfully.",
+  "Settings Save에 실패했습니다.": "Failed to save settings.",
+  "이 브라우저는 푸시 알림을 지원하지 않습니다.":
+    "This browser does not support push notifications.",
+  "푸시 알림이 활성화되었습니다!": "Push notifications enabled!",
+  "푸시 알림 permission이 거부되었습니다.":
+    "Push notification permission denied.",
+  실패: "failed",
+  "알림 유형": "Notification Types",
+  "Time Capsule 오픈": "Time Capsule Opens",
+  "Time Capsule이 열릴 때 알림을 받습니다":
+    "Receive notifications when time capsules open",
+  "초대 알림": "Invitation Notifications",
+  "Time Capsule에 초대되었을 때 알림을 받습니다":
+    "Receive notifications when invited to time capsules",
+  "콘텐츠 추가": "Content Added",
+  "Collaborators가 콘텐츠를 추가했을 때 알림을 받습니다":
+    "Receive notifications when collaborators add content",
+  리마인더: "Reminders",
+  "Time Capsule 오픈 전 리마인더를 받습니다":
+    "Receive reminders before time capsules open",
+  "Collaborators 활동": "Collaborator Activity",
+  "Collaborators가 참여하거나 나갔을 때 알림을 받습니다":
+    "Receive notifications when collaborators join or leave",
+  "알림 방식": "Notification Methods",
+  "푸시 알림": "Push Notifications",
+  "브라우저 푸시 알림으로 실시간 알림을 받습니다":
+    "Receive real-time notifications via browser push",
+  "잠금 해제days": "Unlock date",
 };
 
 function replaceInFile(filePath) {

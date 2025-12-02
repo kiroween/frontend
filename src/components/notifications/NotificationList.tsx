@@ -157,7 +157,7 @@ export function NotificationList({ onClose }: NotificationListProps) {
         <div className="p-4 border-t border-stone-700">
           <Link href="/notifications">
             <Button variant="ghost" size="sm" className="w-full text-sm">
-              모든 알림 보기
+              All Notifications 보기
             </Button>
           </Link>
         </div>

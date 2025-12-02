@@ -131,7 +131,7 @@ describe('ContentViewer Property-Based Tests', () => {
 
             // Unlock date should be displayed
             const formattedDate = capsule.openDate.toLocaleDateString('ko-KR');
-            expect(screen.getByText(`잠금 해제days: ${formattedDate}`)).toBeInTheDocument();
+            expect(screen.getByText(`Unlock date: ${formattedDate}`)).toBeInTheDocument();
           }
         ),
         { numRuns: 100 }

@@ -49,7 +49,7 @@ export function DownloadModal({
       }, 1500);
     } catch (error) {
       console.error("Download failed:", error);
-      alert("Download에 실패했습니다. 다시 시도해주세요.");
+      alert("Download에 failed했습니다. 다시 시도해주세요.");
     } finally {
       setIsDownloading(false);
       setProgress(null);
@@ -104,16 +104,16 @@ export function DownloadModal({
             <div className="grid grid-cols-3 gap-3">
               <FormatOption
                 icon={<Archive size={20} />}
-                label="ZIP 파days"
-                description="모든 파days을 압축"
+                label="ZIP Files"
+                description="모든 Files을 압축"
                 selected={selectedFormat === "zip"}
                 onClick={() => setSelectedFormat("zip")}
                 disabled={isDownloading}
               />
               <FormatOption
                 icon={<File size={20} />}
-                label="개별 파days"
-                description="파days별로 Download"
+                label="별 Files"
+                description="Files별로 Download"
                 selected={selectedFormat === "individual"}
                 onClick={() => setSelectedFormat("individual")}
                 disabled={isDownloading}
@@ -133,7 +133,7 @@ export function DownloadModal({
           <div>
             <div className="flex items-center justify-between mb-3">
               <label className="text-stone-300 text-sm">
-                파days 선택 ({selectedItems.length}/{contents.length})
+                Files 선택 ({selectedItems.length}/{contents.length})
               </label>
               <button
                 onClick={toggleAll}
@@ -188,7 +188,7 @@ export function DownloadModal({
               <div>
                 <p className="text-stone-200 text-sm">메타데이터 포함</p>
                 <p className="text-stone-500 text-xs">
-                  Time Capsule 정보를 JSON 파days로 포함합니다
+                  Time Capsule 정보를 JSON Files로 포함합니다
                 </p>
               </div>
             </label>

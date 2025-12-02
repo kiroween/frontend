@@ -64,7 +64,7 @@ export function ContentViewer({
                   </div>
                 )}
                 <p className="text-stone-500 text-sm">
-                  잠금 해제days: {timeCapsule.openDate.toLocaleDateString('ko-KR')}
+                  Unlock date: {timeCapsule.openDate.toLocaleDateString('ko-KR')}
                 </p>
               </div>
             </div>

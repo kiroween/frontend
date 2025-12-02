@@ -1,7 +1,20 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from "react";
-import { authApi, User, SignUpRequest, SignInRequest, AuthResponse } from "@/lib/api/auth";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+  useCallback,
+} from "react";
+import {
+  authApi,
+  User,
+  SignUpRequest,
+  SignInRequest,
+  AuthResponse,
+} from "@/lib/api/auth";
 import { tokenStorage } from "@/lib/auth/tokenStorage";
 import { apiClient } from "@/lib/api/client";
 import { ApiErrorCode } from "@/lib/types/api";
@@ -47,19 +60,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signIn = useCallback(async (data: SignInRequest) => {
     try {
+      console.log("Attempting sign in with:", { email: data.email });
       const response = await authApi.signIn(data);
+      console.log("Sign in response:", response);
+
       const authData: AuthResponse = response.data;
-      
+
       // Store token in localStorage
       tokenStorage.setToken(authData.sessionToken, authData.expiresAt);
-      
+
       // Set token in API client for subsequent requests
       apiClient.setAuthToken(authData.sessionToken);
-      
+
       // Update user state
       setUser(authData.user);
     } catch (error) {
       console.error("Sign in failed:", error);
+      console.error("Error details:", JSON.stringify(error, null, 2));
       throw error;
     }
   }, []);
@@ -74,10 +91,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } finally {
       // Remove token from localStorage
       tokenStorage.removeToken();
-      
+
       // Remove token from API client
       apiClient.removeAuthToken();
-      
+
       // Clear user state
       setUser(null);
     }
@@ -86,13 +103,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const deleteAccount = useCallback(async () => {
     try {
       await authApi.deleteAccount();
-      
+
       // Remove token from localStorage
       tokenStorage.removeToken();
-      
+
       // Remove token from API client
       apiClient.removeAuthToken();
-      
+
       // Clear user state
       setUser(null);
     } catch (error) {
@@ -113,11 +130,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     deleteAccount,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {

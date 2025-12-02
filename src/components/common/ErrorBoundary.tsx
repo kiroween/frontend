@@ -39,7 +39,7 @@ export class ErrorBoundary extends Component<Props, State> {
               size="lg"
               onClick={() => window.location.href = "/"}
             >
-              처음으로 돌아가기
+              처음으로 Go Back
             </Button>
           </div>
         </div>

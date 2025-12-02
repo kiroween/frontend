@@ -29,15 +29,15 @@ export default function NotificationSettingsPage() {
           <Link href="/graveyard">
             <Button variant="ghost" size="sm" className="mb-4 flex items-center gap-2">
               <ArrowLeft size={16} />
-              돌아가기
+              Go Back
             </Button>
           </Link>
           
           <h1 className="font-cinzel text-4xl text-stone-200 mb-2">
-            알림 설정
+            Notification Settings
           </h1>
           <p className="text-stone-400">
-            알림 유형과 수신 방법을 설정하세요
+            Configure notification types and delivery methods
           </p>
         </div>
 

@@ -32,10 +32,10 @@ export function NotificationSettings({ settings: initialSettings, onUpdate }: No
 
     try {
       await onUpdate(settings);
-      setSaveMessage("설정이 Save되었습니다.");
+      setSaveMessage("Settings saved successfully.");
       setTimeout(() => setSaveMessage(null), 3000);
     } catch (error) {
-      setSaveMessage("설정 Save에 실패했습니다.");
+      setSaveMessage("Failed to save settings.");
       console.error("Failed to save settings:", error);
     } finally {
       setIsSaving(false);
@@ -44,7 +44,7 @@ export function NotificationSettings({ settings: initialSettings, onUpdate }: No
 
   const requestPushPermission = async () => {
     if (!("Notification" in window)) {
-      alert("이 브라우저는 푸시 알림을 지원하지 않습니다.");
+      alert("This browser does not support push notifications.");
       return;
     }
 
@@ -52,9 +52,9 @@ export function NotificationSettings({ settings: initialSettings, onUpdate }: No
     
     if (permission === "granted") {
       setSettings((prev) => ({ ...prev, pushEnabled: true }));
-      alert("푸시 알림이 활성화되었습니다!");
+      alert("Push notifications enabled!");
     } else {
-      alert("푸시 알림 permission이 거부되었습니다.");
+      alert("Push notification permission denied.");
     }
   };
 
@@ -63,7 +63,7 @@ export function NotificationSettings({ settings: initialSettings, onUpdate }: No
       {/* Save Message */}
       {saveMessage && (
         <div className={`p-4 rounded-lg ${
-          saveMessage.includes("실패") 
+          saveMessage.includes("failed") 
             ? "bg-red-900/20 border border-red-700 text-red-400" 
             : "bg-green-900/20 border border-green-700 text-green-400"
         }`}>
@@ -75,41 +75,41 @@ export function NotificationSettings({ settings: initialSettings, onUpdate }: No
       <div className="bg-stone-900/50 border border-stone-700 rounded-lg p-6">
         <h3 className="font-cinzel text-xl text-stone-200 mb-4 flex items-center gap-2">
           <Bell size={20} />
-          알림 유형
+          Notification Types
         </h3>
         
         <div className="space-y-4">
           <ToggleItem
-            label="Time Capsule 오픈"
-            description="Time Capsule이 열릴 때 알림을 받습니다"
+            label="Time Capsule Opens"
+            description="Receive notifications when time capsules open"
             checked={settings.capsuleOpened}
             onChange={() => handleToggle("capsuleOpened")}
           />
 
           <ToggleItem
-            label="초대 알림"
-            description="Time Capsule에 초대되었을 때 알림을 받습니다"
+            label="Invitation Notifications"
+            description="Receive notifications when invited to time capsules"
             checked={settings.invitations}
             onChange={() => handleToggle("invitations")}
           />
 
           <ToggleItem
-            label="콘텐츠 추가"
-            description="Collaborators가 콘텐츠를 추가했을 때 알림을 받습니다"
+            label="Content Added"
+            description="Receive notifications when collaborators add content"
             checked={settings.contentAdded}
             onChange={() => handleToggle("contentAdded")}
           />
 
           <ToggleItem
-            label="리마인더"
-            description="Time Capsule 오픈 전 리마인더를 받습니다"
+            label="Reminders"
+            description="Time Capsule Opens 전 Reminders를 받습니다"
             checked={settings.reminders}
             onChange={() => handleToggle("reminders")}
           />
 
           <ToggleItem
-            label="Collaborators 활동"
-            description="Collaborators가 참여하거나 나갔을 때 알림을 받습니다"
+            label="Collaborator Activity"
+            description="Receive notifications when collaborators join or leave"
             checked={settings.collaboratorActivity}
             onChange={() => handleToggle("collaboratorActivity")}
           />
@@ -119,7 +119,7 @@ export function NotificationSettings({ settings: initialSettings, onUpdate }: No
       {/* Delivery Methods */}
       <div className="bg-stone-900/50 border border-stone-700 rounded-lg p-6">
         <h3 className="font-cinzel text-xl text-stone-200 mb-4">
-          알림 방식
+          Notification Methods
         </h3>
         
         <div className="space-y-4">
@@ -127,7 +127,7 @@ export function NotificationSettings({ settings: initialSettings, onUpdate }: No
             <Smartphone size={24} className="text-soul-blue flex-shrink-0 mt-1" />
             <div className="flex-1">
               <div className="flex items-center justify-between mb-2">
-                <h4 className="text-stone-200 font-medium">푸시 알림</h4>
+                <h4 className="text-stone-200 font-medium">Push Notifications</h4>
                 <label className="relative inline-flex items-center cursor-pointer">
                   <input
                     type="checkbox"
@@ -139,7 +139,7 @@ export function NotificationSettings({ settings: initialSettings, onUpdate }: No
                 </label>
               </div>
               <p className="text-stone-500 text-sm mb-3">
-                브라우저 푸시 알림으로 실시간 알림을 받습니다
+                브라우저 Push Notifications으로 실시간 알림을 받습니다
               </p>
               {!settings.pushEnabled && (
                 <Button
@@ -172,7 +172,7 @@ export function NotificationSettings({ settings: initialSettings, onUpdate }: No
           variant="seal"
           size="lg"
         >
-          {isSaving ? "Save 중..." : "설정 Save"}
+          {isSaving ? "Save 중..." : "Settings Save"}
         </Button>
       </div>
     </div>

@@ -34,7 +34,7 @@ export default function GraveyardPage() {
   useEffect(() => {
     // Check authentication
     if (!isAuthenticated) {
-      router.push('/login');
+      router.push("/login");
       return;
     }
 
@@ -44,8 +44,8 @@ export default function GraveyardPage() {
         const response = await gravesApi.getAll();
         setTombstones(response.data);
       } catch (error: any) {
-        console.error('Failed to fetch tombstones:', error);
-        showToast(error.message || 'Time Capsule 목록을 불러오는데 실패했습니다', 'error');
+        console.error("Failed to fetch tombstones:", error);
+        showToast(error.message || "Failed to load time capsules", "error");
       } finally {
         setIsLoading(false);
       }
@@ -82,10 +82,10 @@ export default function GraveyardPage() {
         {/* Header */}
         <div className="text-center mb-16 animate-fade-in">
           <h1 className="font-cinzel text-5xl md:text-6xl text-stone-300 mb-4 tracking-wider">
-            나의 묘지
+            My Graveyard
           </h1>
           <p className="text-stone-500 text-lg">
-            Sealed Memory들이 부활을 기다립니다
+            Sealed memories await resurrection
           </p>
         </div>
 
@@ -94,11 +94,11 @@ export default function GraveyardPage() {
           <div className="text-center py-16">
             <div className="text-6xl mb-6 opacity-50">🪦</div>
             <p className="text-stone-400 text-lg mb-8">
-              아직 묻힌 기억이 없습니다
+              No buried memories yet
             </p>
             <Link href="/create">
               <Button variant="seal" size="lg">
-                첫 기억 묻기
+                Bury Your First Memory
               </Button>
             </Link>
           </div>
@@ -106,10 +106,11 @@ export default function GraveyardPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-16">
             {tombstones.map((tomb, index) => {
               // Calculate days remaining for locked capsules
-              const daysRemaining = tomb.status === 'locked' 
-                ? calculateDaysRemaining(tomb.openDate) 
-                : undefined;
-              
+              const daysRemaining =
+                tomb.status === "locked"
+                  ? calculateDaysRemaining(tomb.openDate)
+                  : undefined;
+
               return (
                 <div
                   key={tomb.id}
@@ -132,7 +133,7 @@ export default function GraveyardPage() {
           <div className="text-center">
             <Link href="/create">
               <Button variant="seal" size="lg" className="animate-pulse">
-                + 새로운 기억 묻기
+                + Bury New Memory
               </Button>
             </Link>
           </div>
@@ -145,19 +146,19 @@ export default function GraveyardPage() {
               <div className="text-3xl font-bold text-[var(--soul-blue)] mb-2">
                 {tombstones.length}
               </div>
-              <div className="text-stone-500 text-sm">총 기억</div>
+              <div className="text-stone-500 text-sm">Total Memories</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-[var(--seal-gold)] mb-2">
-                {tombstones.filter((t) => t.status === 'locked').length}
+                {tombstones.filter((t) => t.status === "locked").length}
               </div>
-              <div className="text-stone-500 text-sm">봉인됨</div>
+              <div className="text-stone-500 text-sm">Sealed</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-green-500 mb-2">
-                {tombstones.filter((t) => t.status === 'unlocked').length}
+                {tombstones.filter((t) => t.status === "unlocked").length}
               </div>
-              <div className="text-stone-500 text-sm">부활 가능</div>
+              <div className="text-stone-500 text-sm">Resurrectable</div>
             </div>
           </div>
         )}

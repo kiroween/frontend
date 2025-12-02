@@ -8,14 +8,14 @@ export default function NotFound() {
         <div className="text-8xl mb-4">🪦</div>
         <h1 className="font-cinzel text-5xl text-stone-300">404</h1>
         <h2 className="font-cinzel text-2xl text-stone-400">
-          길을 잃으셨나요?
+          Lost your way?
         </h2>
         <p className="text-stone-500">
-          이 페이지는 아직 묻히지 않았거나 이미 사라진 기억입니다.
+          This page is a memory not yet buried or already vanished.
         </p>
         <Link href="/">
           <Button variant="seal" size="lg">
-            묘지로 돌아가기
+            Return to Graveyard
           </Button>
         </Link>
       </div>

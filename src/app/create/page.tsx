@@ -22,37 +22,37 @@ export default function CreatePage() {
 
   const handleCreate = async () => {
     setIsCreating(true);
-    
+
     try {
       // Convert selectedDate string to Date object
       const unlockDate = new Date(selectedDate);
-      
+
       // Validate unlock date is in the future
       if (unlockDate <= new Date()) {
         showToast("Unlock date must be in the future", "error");
         setIsCreating(false);
         return;
       }
-      
+
       // Call the real API
       const response = await gravesApi.create({
         title,
         content: message,
         unlockDate,
       });
-      
+
       // Show success message
-      showToast("Time Capsule이 성공적으로 생성되었습니다", "success");
-      
+      showToast("Time capsule created successfully", "success");
+
       // Navigate to graveyard page
       router.push("/graveyard");
     } catch (error) {
       // Handle API errors
-      const errorMessage = 
-        error && typeof error === 'object' && 'message' in error 
-          ? String(error.message) 
-          : "Time Capsule 생성 중 오류가 발생했습니다";
-      
+      const errorMessage =
+        error && typeof error === "object" && "message" in error
+          ? String(error.message)
+          : "Failed to create time capsule";
+
       showToast(errorMessage, "error");
       setIsCreating(false);
     }
@@ -67,10 +67,10 @@ export default function CreatePage() {
         {/* Header */}
         <div className="text-center mb-12 animate-fade-in">
           <h1 className="font-cinzel text-5xl md:text-6xl text-stone-300 mb-4 tracking-wider">
-            매장 의식
+            Burial Ritual
           </h1>
           <p className="text-stone-500 text-lg">
-            기억을 봉인하고 미래에 부활시키세요
+            Seal your memories and resurrect them in the future
           </p>
         </div>
 
@@ -112,25 +112,25 @@ export default function CreatePage() {
               <div className="space-y-6 animate-fade-in">
                 <div>
                   <label className="block font-cinzel text-stone-300 mb-2">
-                    Time Capsule 제목
+                    Time Capsule Title
                   </label>
                   <input
                     type="text"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    placeholder="예: 2025년의 나에게"
+                    placeholder="e.g., To myself in 2025"
                     className="w-full bg-stone-950/80 border-2 border-stone-700 rounded-lg px-4 py-3 text-stone-300 focus:border-[var(--soul-blue)] focus:outline-none transition-colors"
                   />
                 </div>
 
                 <div>
                   <label className="block font-cinzel text-stone-300 mb-2">
-                    미래의 나에게 남길 메시지
+                    Message to Future Self
                   </label>
                   <textarea
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    placeholder="미래의 당신에게 전하고 싶은 말을 적어주세요..."
+                    placeholder="Write a message to your future self..."
                     rows={6}
                     className="w-full bg-stone-950/80 border-2 border-stone-700 rounded-lg px-4 py-3 text-stone-300 focus:border-[var(--soul-blue)] focus:outline-none transition-colors resize-none"
                   />
@@ -143,7 +143,7 @@ export default function CreatePage() {
                   disabled={!title || !message}
                   className="w-full"
                 >
-                  다음 단계
+                  Next Step
                 </Button>
               </div>
             )}
@@ -159,7 +159,7 @@ export default function CreatePage() {
                     onClick={() => setStep(1)}
                     className="flex-1"
                   >
-                    이전
+                    Previous
                   </Button>
                   <Button
                     variant="seal"
@@ -168,7 +168,7 @@ export default function CreatePage() {
                     disabled={!selectedDate}
                     className="flex-1"
                   >
-                    다음 단계
+                    Next Step
                   </Button>
                 </div>
               </div>
@@ -180,12 +180,12 @@ export default function CreatePage() {
 
                 <div className="border-t-2 border-stone-700 pt-6">
                   <h4 className="font-cinzel text-lg text-stone-300 mb-4">
-                    요약
+                    Summary
                   </h4>
                   <div className="space-y-2 text-stone-400 text-sm">
-                    <p>제목: {title}</p>
-                    <p>Resurrected on: {selectedDate}</p>
-                    <p>파days: {files.length}개</p>
+                    <p>Title: {title}</p>
+                    <p>Resurrection Date: {selectedDate}</p>
+                    <p>Files: {files.length}</p>
                   </div>
                 </div>
 
@@ -196,7 +196,7 @@ export default function CreatePage() {
                     onClick={() => setStep(2)}
                     className="flex-1"
                   >
-                    이전
+                    Previous
                   </Button>
                   <Button
                     variant="seal"
@@ -205,7 +205,7 @@ export default function CreatePage() {
                     disabled={isCreating}
                     className="flex-1"
                   >
-                    {isCreating ? "봉인 중..." : "기억 봉인하기"}
+                    {isCreating ? "Sealing..." : "Seal Memory"}
                   </Button>
                 </div>
               </div>
