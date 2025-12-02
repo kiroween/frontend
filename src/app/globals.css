@@ -185,7 +185,8 @@
   }
 
   @keyframes fog-drift {
-    0%, 100% {
+    0%,
+    100% {
       transform: translate(0, 0);
       opacity: 0.3;
     }
@@ -196,7 +197,8 @@
   }
 
   @keyframes soul-glow {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 0.6;
       filter: blur(8px);
     }
@@ -223,6 +225,17 @@
     to {
       transform: translateY(0);
       opacity: 1;
+    }
+  }
+
+  @keyframes stoneRise {
+    from {
+      opacity: 0;
+      transform: translateY(40px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
   }
 

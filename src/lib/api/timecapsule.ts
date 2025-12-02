@@ -2,8 +2,8 @@
  * Time Capsule API Service
  */
 
-import { apiClient } from './client';
-import { mockTimeCapsuleApi } from './mock';
+import { apiClient } from "./client";
+
 import {
   TimeCapsule,
   CreateTimeCapsuleRequest,
@@ -13,21 +13,24 @@ import {
   InviteCollaboratorRequest,
   RemoveCollaboratorRequest,
   ApiResponse,
-} from '../types';
+} from "../types";
 
 // Determine if we should use mock API
-const useMock = process.env.NODE_ENV === 'development' && !process.env.NEXT_PUBLIC_API_URL;
+const useMock =
+  process.env.NODE_ENV === "development" && !process.env.NEXT_PUBLIC_API_URL;
 
 export const timeCapsuleApi = {
   /**
    * Create a new time capsule
    */
-  create: async (data: CreateTimeCapsuleRequest): Promise<ApiResponse<TimeCapsule>> => {
+  create: async (
+    data: CreateTimeCapsuleRequest
+  ): Promise<ApiResponse<TimeCapsule>> => {
     if (useMock) {
       return mockTimeCapsuleApi.create(data);
     }
 
-    return apiClient.post<TimeCapsule>('/api/timecapsules', data);
+    return apiClient.post<TimeCapsule>("/api/timecapsules", data);
   },
 
   /**
@@ -49,7 +52,7 @@ export const timeCapsuleApi = {
       return mockTimeCapsuleApi.getAll();
     }
 
-    return apiClient.get<TimeCapsule[]>('/api/timecapsules');
+    return apiClient.get<TimeCapsule[]>("/api/timecapsules");
   },
 
   /**
@@ -61,7 +64,7 @@ export const timeCapsuleApi = {
   ): Promise<ApiResponse<TimeCapsule>> => {
     if (useMock) {
       // Mock implementation would go here
-      throw new Error('Not implemented in mock');
+      throw new Error("Not implemented in mock");
     }
 
     return apiClient.put<TimeCapsule>(`/api/timecapsules/${id}`, data);
@@ -88,7 +91,10 @@ export const timeCapsuleApi = {
       return mockTimeCapsuleApi.share(data);
     }
 
-    return apiClient.post<ShareTimeCapsuleResponse>('/api/timecapsules/share', data);
+    return apiClient.post<ShareTimeCapsuleResponse>(
+      "/api/timecapsules/share",
+      data
+    );
   },
 
   /**
@@ -99,10 +105,13 @@ export const timeCapsuleApi = {
   ): Promise<ApiResponse<{ success: boolean }>> => {
     if (useMock) {
       // Mock implementation would go here
-      throw new Error('Not implemented in mock');
+      throw new Error("Not implemented in mock");
     }
 
-    return apiClient.post<{ success: boolean }>('/api/timecapsules/invite', data);
+    return apiClient.post<{ success: boolean }>(
+      "/api/timecapsules/invite",
+      data
+    );
   },
 
   /**
@@ -113,9 +122,12 @@ export const timeCapsuleApi = {
   ): Promise<ApiResponse<{ success: boolean }>> => {
     if (useMock) {
       // Mock implementation would go here
-      throw new Error('Not implemented in mock');
+      throw new Error("Not implemented in mock");
     }
 
-    return apiClient.post<{ success: boolean }>('/api/timecapsules/remove-collaborator', data);
+    return apiClient.post<{ success: boolean }>(
+      "/api/timecapsules/remove-collaborator",
+      data
+    );
   },
 };

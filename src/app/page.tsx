@@ -16,12 +16,20 @@ export default function LandingPage() {
       <div className="relative z-20 flex items-center justify-center min-h-screen">
         <div className="text-center space-y-8 px-4 animate-fade-in">
           {/* Stone Gate */}
-          <div className="stone-gate relative border-4 border-stone-700/80 rounded-lg p-8 md:p-16 bg-gradient-to-b from-stone-800/20 to-stone-900/30 backdrop-blur-md shadow-2xl">
+          <div className="relative border-4 border-stone-700/80 rounded-lg p-8 md:p-16 bg-gradient-to-b from-stone-800/20 to-stone-900/30 backdrop-blur-md shadow-2xl animate-[stoneRise_1.5s_ease-out]">
             {/* Ancient Runes Decoration */}
-            <div className="absolute top-4 left-4 text-stone-600 text-xs opacity-50">⚝</div>
-            <div className="absolute top-4 right-4 text-stone-600 text-xs opacity-50">⚝</div>
-            <div className="absolute bottom-4 left-4 text-stone-600 text-xs opacity-50">⚝</div>
-            <div className="absolute bottom-4 right-4 text-stone-600 text-xs opacity-50">⚝</div>
+            <div className="absolute top-4 left-4 text-stone-600 text-xs opacity-50">
+              ⚝
+            </div>
+            <div className="absolute top-4 right-4 text-stone-600 text-xs opacity-50">
+              ⚝
+            </div>
+            <div className="absolute bottom-4 left-4 text-stone-600 text-xs opacity-50">
+              ⚝
+            </div>
+            <div className="absolute bottom-4 right-4 text-stone-600 text-xs opacity-50">
+              ⚝
+            </div>
 
             <h1 className="font-cinzel text-5xl md:text-8xl tracking-[0.3em] text-stone-300 mb-12 drop-shadow-[0_0_20px_rgba(74,144,226,0.3)]">
               TIMEGRAVE
@@ -29,7 +37,9 @@ export default function LandingPage() {
 
             <div className="space-y-6 text-stone-400 text-lg md:text-xl mb-12">
               <p className="font-cinzel italic">&ldquo;과거를 묻고,&rdquo;</p>
-              <p className="font-cinzel italic">&ldquo;미래를 부활하라&rdquo;</p>
+              <p className="font-cinzel italic">
+                &ldquo;미래를 부활하라&rdquo;
+              </p>
             </div>
 
             <p className="text-stone-500 text-sm mb-8 max-w-md mx-auto">
@@ -45,37 +55,28 @@ export default function LandingPage() {
                 </Button>
               </Link>
               <Link href="/login">
-                <Button variant="seal" size="lg" className="animate-slide-up" style={{ animationDelay: "100ms" }}>
+                <Button
+                  variant="seal"
+                  size="lg"
+                  className="animate-slide-up"
+                  style={{ animationDelay: "100ms" }}
+                >
                   로그인
                 </Button>
               </Link>
             </div>
-            
+
             <div className="mt-6">
-              <Link href="/graveyard" className="text-stone-500 hover:text-stone-400 text-sm transition-colors">
+              <Link
+                href="/graveyard"
+                className="text-stone-500 hover:text-stone-400 text-sm transition-colors"
+              >
                 또는 둘러보기 →
               </Link>
             </div>
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        .stone-gate {
-          animation: stoneRise 1.5s ease-out;
-        }
-
-        @keyframes stoneRise {
-          from {
-            opacity: 0;
-            transform: translateY(40px) scale(0.95);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
-      `}</style>
     </main>
   );
 }

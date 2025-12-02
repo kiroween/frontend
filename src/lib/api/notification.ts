@@ -2,18 +2,18 @@
  * Notification API Service
  */
 
-import { apiClient } from './client';
-import { mockNotificationApi } from './mock';
+import { apiClient } from "./client";
 import {
   Notification,
   NotificationPreferences,
   CreateNotificationRequest,
   UpdateNotificationRequest,
   ApiResponse,
-} from '../types';
+} from "../types";
 
 // Determine if we should use mock API
-const useMock = process.env.NODE_ENV === 'development' && !process.env.NEXT_PUBLIC_API_URL;
+const useMock =
+  process.env.NODE_ENV === "development" && !process.env.NEXT_PUBLIC_API_URL;
 
 export const notificationApi = {
   /**
@@ -24,18 +24,22 @@ export const notificationApi = {
       return mockNotificationApi.getAll();
     }
 
-    return apiClient.get<Notification[]>('/api/notifications');
+    return apiClient.get<Notification[]>("/api/notifications");
   },
 
   /**
    * Mark a notification as read
    */
-  markAsRead: async (notificationId: string): Promise<ApiResponse<{ success: boolean }>> => {
+  markAsRead: async (
+    notificationId: string
+  ): Promise<ApiResponse<{ success: boolean }>> => {
     if (useMock) {
       return mockNotificationApi.markAsRead(notificationId);
     }
 
-    return apiClient.put<{ success: boolean }>(`/api/notifications/${notificationId}/read`);
+    return apiClient.put<{ success: boolean }>(
+      `/api/notifications/${notificationId}/read`
+    );
   },
 
   /**
@@ -46,7 +50,7 @@ export const notificationApi = {
       return mockNotificationApi.markAllAsRead();
     }
 
-    return apiClient.put<{ success: boolean }>('/api/notifications/read-all');
+    return apiClient.put<{ success: boolean }>("/api/notifications/read-all");
   },
 
   /**
@@ -57,7 +61,9 @@ export const notificationApi = {
       return mockNotificationApi.getPreferences();
     }
 
-    return apiClient.get<NotificationPreferences>('/api/notifications/preferences');
+    return apiClient.get<NotificationPreferences>(
+      "/api/notifications/preferences"
+    );
   },
 
   /**
@@ -70,7 +76,10 @@ export const notificationApi = {
       return mockNotificationApi.updatePreferences(preferences);
     }
 
-    return apiClient.put<NotificationPreferences>('/api/notifications/preferences', preferences);
+    return apiClient.put<NotificationPreferences>(
+      "/api/notifications/preferences",
+      preferences
+    );
   },
 
   /**
@@ -81,9 +90,9 @@ export const notificationApi = {
   ): Promise<ApiResponse<Notification>> => {
     if (useMock) {
       // Mock implementation would go here
-      throw new Error('Not implemented in mock');
+      throw new Error("Not implemented in mock");
     }
 
-    return apiClient.post<Notification>('/api/notifications', data);
+    return apiClient.post<Notification>("/api/notifications", data);
   },
 };
