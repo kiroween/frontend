@@ -70,10 +70,10 @@ export function FileUpload({ onFilesChange }: FileUploadProps) {
         <div className="text-center">
           <div className="text-6xl mb-4">📦</div>
           <p className="text-stone-400 mb-2">
-            파일을 드래그하거나 클릭하여 선택
+            파days을 드래그하거나 클릭하여 선택
           </p>
           <p className="text-stone-600 text-sm">
-            이미지, 비디오, 문서 등 모든 파일
+            이미지, 비디오, 문서 등 모든 파days
           </p>
         </div>
         <input
@@ -89,7 +89,7 @@ export function FileUpload({ onFilesChange }: FileUploadProps) {
       {files.length > 0 && (
         <div className="space-y-2">
           <h4 className="font-cinzel text-lg text-stone-400">
-            선택된 파일 ({files.length})
+            선택된 파days ({files.length})
           </h4>
           <div className="space-y-2 max-h-60 overflow-y-auto">
             {files.map((file, index) => (

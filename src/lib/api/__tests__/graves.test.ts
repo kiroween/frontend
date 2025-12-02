@@ -81,10 +81,10 @@ describe('Graves API Unit Tests', () => {
         status: 400,
         error: {
           code: 'VALIDATION_ERROR',
-          message: '입력값이 올바르지 않습니다',
+          message: 'Invalid input',
           details: {
-            title: '제목은 필수 항목입니다',
-            unlock_date: '잠금 해제 날짜는 미래여야 합니다',
+            title: 'Title is required',
+            unlock_date: 'Unlock date must be in the future',
           },
         },
       };
@@ -101,7 +101,7 @@ describe('Graves API Unit Tests', () => {
         expect.fail('Should have thrown an error');
       } catch (error: any) {
         expect(error.code).toBe(ApiErrorCode.VALIDATION_ERROR);
-        expect(error.message).toBe('입력값이 올바르지 않습니다');
+        expect(error.message).toBe('Invalid input');
         expect(error.statusCode).toBe(400);
         expect(error.details).toBeDefined();
       }
@@ -119,7 +119,7 @@ describe('Graves API Unit Tests', () => {
         status: 400,
         error: {
           code: 'VALIDATION_ERROR',
-          message: '잠금 해제 날짜는 미래여야 합니다',
+          message: 'Unlock date must be in the future',
         },
       };
 
@@ -151,7 +151,7 @@ describe('Graves API Unit Tests', () => {
         status: 401,
         error: {
           code: 'UNAUTHORIZED',
-          message: '인증이 필요합니다',
+          message: 'Authentication required',
         },
       };
 
@@ -266,7 +266,7 @@ describe('Graves API Unit Tests', () => {
         status: 401,
         error: {
           code: 'UNAUTHORIZED',
-          message: '인증이 필요합니다',
+          message: 'Authentication required',
         },
       };
 
@@ -337,7 +337,7 @@ describe('Graves API Unit Tests', () => {
         status: 404,
         error: {
           code: 'NOT_FOUND',
-          message: '타임캡슐을 찾을 수 없습니다',
+          message: 'Time capsule not found',
         },
       };
 
@@ -353,7 +353,7 @@ describe('Graves API Unit Tests', () => {
         expect.fail('Should have thrown an error');
       } catch (error: any) {
         expect(error.code).toBe(ApiErrorCode.NOT_FOUND);
-        expect(error.message).toBe('타임캡슐을 찾을 수 없습니다');
+        expect(error.message).toBe('Time capsule not found');
         expect(error.statusCode).toBe(404);
       }
     });
@@ -365,7 +365,7 @@ describe('Graves API Unit Tests', () => {
         status: 403,
         error: {
           code: 'FORBIDDEN',
-          message: '접근 권한이 없습니다',
+          message: 'Access denied',
         },
       };
 
@@ -381,7 +381,7 @@ describe('Graves API Unit Tests', () => {
         expect.fail('Should have thrown an error');
       } catch (error: any) {
         expect(error.code).toBe(ApiErrorCode.FORBIDDEN);
-        expect(error.message).toBe('접근 권한이 없습니다');
+        expect(error.message).toBe('Access denied');
         expect(error.statusCode).toBe(403);
       }
     });
@@ -393,7 +393,7 @@ describe('Graves API Unit Tests', () => {
         status: 401,
         error: {
           code: 'UNAUTHORIZED',
-          message: '인증이 필요합니다',
+          message: 'Authentication required',
         },
       };
 

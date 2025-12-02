@@ -84,28 +84,28 @@ describe('ContentViewer Property-Based Tests', () => {
               expect(screen.queryByText(capsule.description)).not.toBeInTheDocument();
 
               // Should show locked status
-              expect(screen.getByText('봉인된 기억')).toBeInTheDocument();
-              expect(screen.getByText('이 타임캡슐은 아직 잠겨있습니다')).toBeInTheDocument();
+              expect(screen.getByText('Sealed Memory')).toBeInTheDocument();
+              expect(screen.getByText('This time capsule is still locked')).toBeInTheDocument();
 
               // Should show days remaining
-              expect(screen.getByText(`${daysRemaining}일`)).toBeInTheDocument();
-              expect(screen.getByText('남은 시간')).toBeInTheDocument();
+              expect(screen.getByText(`${daysRemaining}days`)).toBeInTheDocument();
+              expect(screen.getByText('remaining')).toBeInTheDocument();
 
               // Should show lock icon
               expect(container.textContent).toContain('🔒');
 
               // Should NOT show message section
-              expect(screen.queryByText('과거로부터의 메시지')).not.toBeInTheDocument();
+              expect(screen.queryByText('Message from the past')).not.toBeInTheDocument();
 
               // Should NOT show files section
-              expect(screen.queryByText(/봉인된 기억들/)).not.toBeInTheDocument();
+              expect(screen.queryByText(/Sealed Memory들/)).not.toBeInTheDocument();
 
               // Should NOT show share/download buttons
-              expect(screen.queryByText('🔗 공유')).not.toBeInTheDocument();
-              expect(screen.queryByText('💾 다운로드')).not.toBeInTheDocument();
+              expect(screen.queryByText('🔗 Share')).not.toBeInTheDocument();
+              expect(screen.queryByText('💾 Download')).not.toBeInTheDocument();
 
               // Should only show back button
-              expect(screen.getByText('← 돌아가기')).toBeInTheDocument();
+              expect(screen.getByText('← Go Back')).toBeInTheDocument();
             } finally {
               cleanup();
             }
@@ -131,7 +131,7 @@ describe('ContentViewer Property-Based Tests', () => {
 
             // Unlock date should be displayed
             const formattedDate = capsule.openDate.toLocaleDateString('ko-KR');
-            expect(screen.getByText(`잠금 해제일: ${formattedDate}`)).toBeInTheDocument();
+            expect(screen.getByText(`잠금 해제days: ${formattedDate}`)).toBeInTheDocument();
           }
         ),
         { numRuns: 100 }
@@ -153,7 +153,7 @@ describe('ContentViewer Property-Based Tests', () => {
             );
 
             // Files section should NOT be visible
-            expect(screen.queryByText(/봉인된 기억들/)).not.toBeInTheDocument();
+            expect(screen.queryByText(/Sealed Memory들/)).not.toBeInTheDocument();
 
             // Individual file names should NOT be visible
             capsule.contents.forEach(file => {
@@ -190,22 +190,22 @@ describe('ContentViewer Property-Based Tests', () => {
           expect(screen.getByText(capsule.description)).toBeInTheDocument();
 
           // Should show message section header
-          expect(screen.getByText('과거로부터의 메시지')).toBeInTheDocument();
+          expect(screen.getByText('Message from the past')).toBeInTheDocument();
 
           // Should NOT show locked status
-          expect(screen.queryByText('봉인된 기억')).not.toBeInTheDocument();
-          expect(screen.queryByText('이 타임캡슐은 아직 잠겨있습니다')).not.toBeInTheDocument();
+          expect(screen.queryByText('Sealed Memory')).not.toBeInTheDocument();
+          expect(screen.queryByText('This time capsule is still locked')).not.toBeInTheDocument();
 
           // Should NOT show days remaining
-          expect(screen.queryByText('남은 시간')).not.toBeInTheDocument();
+          expect(screen.queryByText('remaining')).not.toBeInTheDocument();
 
           // Should show action buttons
-          expect(screen.getByText('🔗 공유')).toBeInTheDocument();
-          expect(screen.getByText('💾 다운로드')).toBeInTheDocument();
-          expect(screen.getByText('🪦 다시 묻기')).toBeInTheDocument();
+          expect(screen.getByText('🔗 Share')).toBeInTheDocument();
+          expect(screen.getByText('💾 Download')).toBeInTheDocument();
+          expect(screen.getByText('🪦 Rebury')).toBeInTheDocument();
 
           // Should NOT show back button
-          expect(screen.queryByText('← 돌아가기')).not.toBeInTheDocument();
+          expect(screen.queryByText('← Go Back')).not.toBeInTheDocument();
         }),
         { numRuns: 100 }
       );
@@ -227,7 +227,7 @@ describe('ContentViewer Property-Based Tests', () => {
 
             // Files section should be visible
             expect(
-              screen.getByText(`봉인된 기억들 (${capsule.contents.length})`)
+              screen.getByText(`Sealed Memory들 (${capsule.contents.length})`)
             ).toBeInTheDocument();
 
             // All file names should be visible
@@ -255,7 +255,7 @@ describe('ContentViewer Property-Based Tests', () => {
             );
 
             // Files section should NOT be visible
-            expect(screen.queryByText(/봉인된 기억들/)).not.toBeInTheDocument();
+            expect(screen.queryByText(/Sealed Memory들/)).not.toBeInTheDocument();
           }
         ),
         { numRuns: 100 }
@@ -338,11 +338,11 @@ describe('ContentViewer Property-Based Tests', () => {
 
             if (capsule.status === 'locked') {
               // Locked UI
-              expect(screen.getByText('봉인된 기억')).toBeInTheDocument();
-              expect(screen.getByText(`${daysRemaining}일`)).toBeInTheDocument();
+              expect(screen.getByText('Sealed Memory')).toBeInTheDocument();
+              expect(screen.getByText(`${daysRemaining}days`)).toBeInTheDocument();
               expect(screen.queryByText(capsule.description)).not.toBeInTheDocument();
-              expect(screen.queryByText('🔗 공유')).not.toBeInTheDocument();
-              expect(screen.getByText('← 돌아가기')).toBeInTheDocument();
+              expect(screen.queryByText('🔗 Share')).not.toBeInTheDocument();
+              expect(screen.getByText('← Go Back')).toBeInTheDocument();
 
               // Files should be hidden
               capsule.contents.forEach(file => {
@@ -351,10 +351,10 @@ describe('ContentViewer Property-Based Tests', () => {
             } else {
               // Unlocked UI
               expect(screen.getByText(capsule.description)).toBeInTheDocument();
-              expect(screen.getByText('과거로부터의 메시지')).toBeInTheDocument();
-              expect(screen.getByText('🔗 공유')).toBeInTheDocument();
-              expect(screen.getByText('💾 다운로드')).toBeInTheDocument();
-              expect(screen.queryByText('봉인된 기억')).not.toBeInTheDocument();
+              expect(screen.getByText('Message from the past')).toBeInTheDocument();
+              expect(screen.getByText('🔗 Share')).toBeInTheDocument();
+              expect(screen.getByText('💾 Download')).toBeInTheDocument();
+              expect(screen.queryByText('Sealed Memory')).not.toBeInTheDocument();
 
               // Files should be visible
               capsule.contents.forEach(file => {
@@ -433,16 +433,16 @@ describe('ContentViewer Property-Based Tests', () => {
 
             if (capsule.status === 'locked') {
               // Only back button for locked
-              expect(container.textContent).toContain('← 돌아가기');
-              expect(container.textContent).not.toContain('🔗 공유');
-              expect(container.textContent).not.toContain('💾 다운로드');
-              expect(container.textContent).not.toContain('🪦 다시 묻기');
+              expect(container.textContent).toContain('← Go Back');
+              expect(container.textContent).not.toContain('🔗 Share');
+              expect(container.textContent).not.toContain('💾 Download');
+              expect(container.textContent).not.toContain('🪦 Rebury');
             } else {
               // Full action buttons for unlocked
-              expect(container.textContent).toContain('🔗 공유');
-              expect(container.textContent).toContain('💾 다운로드');
-              expect(container.textContent).toContain('🪦 다시 묻기');
-              expect(container.textContent).not.toContain('← 돌아가기');
+              expect(container.textContent).toContain('🔗 Share');
+              expect(container.textContent).toContain('💾 Download');
+              expect(container.textContent).toContain('🪦 Rebury');
+              expect(container.textContent).not.toContain('← Go Back');
             }
           }
         ),

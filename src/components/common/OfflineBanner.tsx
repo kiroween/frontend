@@ -13,7 +13,7 @@ export function OfflineBanner() {
       <div className="container mx-auto flex items-center justify-center gap-3">
         <WifiOff size={20} className="text-red-200" />
         <p className="text-red-100 text-sm font-medium">
-          인터넷 연결이 끊어졌습니다. 일부 기능이 제한될 수 있습니다.
+          인터넷 connection이 끊어졌습니다. days부 기능이 제한될 수 있습니다.
         </p>
       </div>
     </div>

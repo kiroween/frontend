@@ -46,7 +46,7 @@ export function ShareButton({
       setShareId(response.data.shareId);
       setIsOpen(true);
     } catch (err: any) {
-      setError(err.message || "공유 링크 생성에 실패했습니다.");
+      setError(err.message || "Failed to create share link.");
       console.error("Share error:", err);
     } finally {
       setIsLoading(false);
@@ -63,7 +63,7 @@ export function ShareButton({
         className={`flex items-center gap-2 ${className}`}
       >
         <Share2 size={16} />
-        {isLoading ? "생성 중..." : "공유"}
+        {isLoading ? "Creating..." : "Share"}
       </Button>
 
       {error && (

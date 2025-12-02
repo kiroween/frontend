@@ -123,8 +123,8 @@ describe('ApiClient', () => {
           expect.fail('Should have thrown an error');
         } catch (error: any) {
           expect(error.code).toBe(ApiErrorCode.NETWORK_ERROR);
-          expect(error.message).toBe('네트워크 연결을 확인해주세요. 인터넷 연결 상태를 확인하거나 잠시 후 다시 시도해주세요.');
-          expect(error.message).toContain('네트워크');
+          expect(error.message).toBe('Please check your network connection. Verify your internet connection or try again later.');
+          expect(error.message).toContain('network');
         }
       });
 
@@ -145,8 +145,8 @@ describe('ApiClient', () => {
             expect.fail('Should have thrown an error');
           } catch (error: any) {
             expect(error.code).toBe(ApiErrorCode.NETWORK_ERROR);
-            expect(error.message).toContain('네트워크');
-            expect(error.message).toContain('연결');
+            expect(error.message).toContain('network');
+            expect(error.message).toContain('connection');
           }
         }
       });
@@ -169,8 +169,8 @@ describe('ApiClient', () => {
           expect.fail('Should have thrown an error');
         } catch (error: any) {
           expect(error.code).toBe(ApiErrorCode.TIMEOUT);
-          expect(error.message).toBe('요청 시간이 초과되었습니다. 잠시 후 다시 시도해주세요.');
-          expect(error.message).toContain('시간이 초과');
+          expect(error.message).toBe('Request timed out. Please try again later.');
+          expect(error.message).toContain('timed out');
         }
       });
 
@@ -189,7 +189,7 @@ describe('ApiClient', () => {
           expect.fail('Should have thrown an error');
         } catch (error: any) {
           expect(error.code).toBe(ApiErrorCode.SERVER_ERROR);
-          expect(error.message).toBe('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+          expect(error.message).toBe('Server error occurred. Please try again later.');
           expect(error.statusCode).toBe(500);
         }
       });
@@ -209,7 +209,7 @@ describe('ApiClient', () => {
           expect.fail('Should have thrown an error');
         } catch (error: any) {
           expect(error.code).toBe(ApiErrorCode.SERVER_ERROR);
-          expect(error.message).toBe('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+          expect(error.message).toBe('Server error occurred. Please try again later.');
           expect(error.statusCode).toBe(502);
         }
       });
@@ -229,7 +229,7 @@ describe('ApiClient', () => {
           expect.fail('Should have thrown an error');
         } catch (error: any) {
           expect(error.code).toBe(ApiErrorCode.SERVER_ERROR);
-          expect(error.message).toBe('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+          expect(error.message).toBe('Server error occurred. Please try again later.');
           expect(error.statusCode).toBe(503);
         }
       });
@@ -249,13 +249,13 @@ describe('ApiClient', () => {
           expect.fail('Should have thrown an error');
         } catch (error: any) {
           expect(error.code).toBe(ApiErrorCode.SERVER_ERROR);
-          expect(error.message).toBe('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+          expect(error.message).toBe('Server error occurred. Please try again later.');
           expect(error.statusCode).toBe(504);
         }
       });
 
       it('should preserve backend Korean error message for server errors', async () => {
-        const backendMessage = '데이터베이스 연결에 실패했습니다';
+        const backendMessage = 'Database connection failed';
         global.fetch = vi.fn().mockResolvedValue({
           ok: false,
           status: 500,
@@ -477,7 +477,7 @@ describe('ApiClient', () => {
     });
 
     it('should extract error from backend error format', async () => {
-      const koreanErrorMessage = '타임캡슐을 찾을 수 없습니다';
+      const koreanErrorMessage = 'Time capsule not found';
       global.fetch = vi.fn().mockResolvedValue({
         ok: false,
         status: 404,
@@ -508,7 +508,7 @@ describe('ApiClient', () => {
           status: 400,
           error: {
             code: 'VALIDATION_ERROR',
-            message: '입력값이 올바르지 않습니다',
+            message: 'Invalid input',
             details: { field: 'email', reason: 'invalid format' }
           }
         }),
@@ -519,7 +519,7 @@ describe('ApiClient', () => {
         expect.fail('Should have thrown an error');
       } catch (error: any) {
         expect(error.code).toBe(ApiErrorCode.VALIDATION_ERROR);
-        expect(error.message).toBe('입력값이 올바르지 않습니다');
+        expect(error.message).toBe('Invalid input');
         expect(error.details).toEqual({ field: 'email', reason: 'invalid format' });
       }
     });
@@ -539,7 +539,7 @@ describe('ApiClient', () => {
         expect.fail('Should have thrown an error');
       } catch (error: any) {
         expect(error.code).toBe(ApiErrorCode.SERVER_ERROR);
-        expect(error.message).toBe('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+        expect(error.message).toBe('Server error occurred. Please try again later.');
       }
     });
 
@@ -704,16 +704,16 @@ describe('ApiClient', () => {
     it('Property 11: Backend error message passthrough', async () => {
       // Korean error messages that backend might return
       const koreanMessages = [
-        '타임캡슐을 찾을 수 없습니다',
-        '접근 권한이 없습니다',
-        '입력값이 올바르지 않습니다',
-        '이메일 형식이 올바르지 않습니다',
-        '비밀번호가 일치하지 않습니다',
-        '이미 존재하는 이메일입니다',
-        '잠금 해제 날짜는 미래여야 합니다',
-        '제목은 필수 항목입니다',
-        '내용은 1000자를 초과할 수 없습니다',
-        '서버 오류가 발생했습니다'
+        'Time capsule not found',
+        'Access denied',
+        'Invalid input',
+        'Invalid email format',
+        'Password does not match',
+        'Email already exists',
+        'Unlock date must be in the future',
+        'Title is required',
+        'Content cannot exceed 1000 characters',
+        'Server error occurred'
       ];
 
       await fc.assert(
@@ -871,28 +871,28 @@ describe('ApiClient', () => {
             // Verify specific expected messages for each error type
             switch (errorCode) {
               case ApiErrorCode.NETWORK_ERROR:
-                expect(caughtError.message).toContain('네트워크');
+                expect(caughtError.message).toContain('network');
                 break;
               case ApiErrorCode.UNAUTHORIZED:
-                expect(caughtError.message).toContain('로그인');
+                expect(caughtError.message).toContain('Login');
                 break;
               case ApiErrorCode.FORBIDDEN:
-                expect(caughtError.message).toContain('권한');
+                expect(caughtError.message).toContain('permission');
                 break;
               case ApiErrorCode.NOT_FOUND:
-                expect(caughtError.message).toContain('찾을 수 없습니다');
+                expect(caughtError.message).toContain('not found');
                 break;
               case ApiErrorCode.VALIDATION_ERROR:
-                expect(caughtError.message).toContain('입력');
+                expect(caughtError.message).toContain('input');
                 break;
               case ApiErrorCode.SERVER_ERROR:
-                expect(caughtError.message).toContain('서버 오류');
+                expect(caughtError.message).toContain('server error');
                 break;
               case ApiErrorCode.TIMEOUT:
-                expect(caughtError.message).toContain('시간이 초과');
+                expect(caughtError.message).toContain('timed out');
                 break;
               case ApiErrorCode.UNKNOWN:
-                expect(caughtError.message).toContain('알 수 없는 오류');
+                expect(caughtError.message).toContain('unknown error');
                 break;
             }
           }

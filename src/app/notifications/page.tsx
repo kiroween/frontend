@@ -26,7 +26,7 @@ export default function NotificationsPage() {
               모든 알림
             </h1>
             <p className="text-stone-400">
-              받은 알림을 모두 확인하세요
+              받은 알림을 모두 Confirm하세요
             </p>
           </div>
 

@@ -71,7 +71,7 @@ export function CryptexDatePicker({ onDateChange }: CryptexDatePickerProps) {
 
         {/* Day Cylinder */}
         <div className="cryptex-cylinder">
-          <div className="cryptex-label">일</div>
+          <div className="cryptex-label">days</div>
           <select
             value={day}
             onChange={(e) => handleChange(year, month, Number(e.target.value))}

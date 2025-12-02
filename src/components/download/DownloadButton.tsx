@@ -59,7 +59,7 @@ export function DownloadButton({
         className={`flex items-center gap-2 ${className}`}
       >
         <Download size={16} />
-        다운로드
+        Download
       </Button>
 
       {isOpen && (

@@ -1,6 +1,13 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+  useCallback,
+} from "react";
 import { Notification, NotificationPreferences } from "@/lib/types";
 import { notificationApi } from "@/lib/api";
 
@@ -11,22 +18,32 @@ interface NotificationContextValue {
   isLoading: boolean;
   markAsRead: (id: string) => Promise<void>;
   markAllAsRead: () => Promise<void>;
-  addNotification: (notification: Omit<Notification, "id" | "createdAt">) => void;
+  addNotification: (
+    notification: Omit<Notification, "id" | "createdAt">
+  ) => void;
   updatePreferences: (preferences: NotificationPreferences) => Promise<void>;
   refreshNotifications: () => Promise<void>;
 }
 
-const NotificationContext = createContext<NotificationContextValue | undefined>(undefined);
+const NotificationContext = createContext<NotificationContextValue | undefined>(
+  undefined
+);
 
 export function NotificationProvider({ children }: { children: ReactNode }) {
   const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [preferences, setPreferences] = useState<NotificationPreferences | null>(null);
+  const [preferences, setPreferences] =
+    useState<NotificationPreferences | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // Load notifications and preferences on mount
   useEffect(() => {
-    loadNotifications();
-    loadPreferences();
+    // Only load if API URL is configured
+    if (process.env.NEXT_PUBLIC_API_URL) {
+      loadNotifications();
+      loadPreferences();
+    } else {
+      setIsLoading(false);
+    }
   }, []);
 
   const loadNotifications = async () => {
@@ -34,7 +51,8 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
       const response = await notificationApi.getAll();
       setNotifications(response.data);
     } catch (error) {
-      console.error("Failed to load notifications:", error);
+      // Silently fail if notification API is not available
+      console.debug("Notification API not available:", error);
     } finally {
       setIsLoading(false);
     }
@@ -45,7 +63,8 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
       const response = await notificationApi.getPreferences();
       setPreferences(response.data);
     } catch (error) {
-      console.error("Failed to load preferences:", error);
+      // Silently fail if notification API is not available
+      console.debug("Notification preferences API not available:", error);
     }
   };
 
@@ -73,7 +92,9 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const addNotification = (notification: Omit<Notification, "id" | "createdAt">) => {
+  const addNotification = (
+    notification: Omit<Notification, "id" | "createdAt">
+  ) => {
     const newNotification: Notification = {
       ...notification,
       id: Math.random().toString(36).substring(2, 15),
@@ -116,7 +137,9 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
 export function useNotifications() {
   const context = useContext(NotificationContext);
   if (context === undefined) {
-    throw new Error("useNotifications must be used within a NotificationProvider");
+    throw new Error(
+      "useNotifications must be used within a NotificationProvider"
+    );
   }
   return context;
 }

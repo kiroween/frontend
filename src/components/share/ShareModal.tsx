@@ -40,7 +40,7 @@ export function ShareModal({
   };
 
   const handleSocialShare = (platform: SharePlatform) => {
-    const text = `${timeCapsuleTitle} - TimeGrave에서 타임캡슐을 공유합니다`;
+    const text = `${timeCapsuleTitle} - Sharing time capsule from TimeGrave`;
     const encodedUrl = encodeURIComponent(shareUrl);
     const encodedText = encodeURIComponent(text);
 
@@ -55,7 +55,7 @@ export function ShareModal({
         break;
       case "kakao":
         // KakaoTalk sharing would require SDK integration
-        alert("카카오톡 공유는 준비 중입니다.");
+        alert("KakaoTalk sharing is coming soon.");
         return;
       case "email":
         url = `mailto:?subject=${encodedText}&body=${encodedUrl}`;
@@ -75,7 +75,7 @@ export function ShareModal({
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-stone-400 hover:text-stone-200 transition-colors"
-          aria-label="닫기"
+          aria-label="Close"
         >
           <X size={24} />
         </button>
@@ -83,11 +83,9 @@ export function ShareModal({
         {/* Header */}
         <div className="p-6 border-b border-stone-700">
           <h2 className="font-cinzel text-2xl text-stone-200 mb-2">
-            타임캡슐 공유
+            Share Time Capsule
           </h2>
-          <p className="text-stone-400 text-sm">
-            {timeCapsuleTitle}
-          </p>
+          <p className="text-stone-400 text-sm">{timeCapsuleTitle}</p>
         </div>
 
         {/* Content */}
@@ -95,7 +93,7 @@ export function ShareModal({
           {/* Share Link */}
           <div>
             <label className="block text-stone-300 text-sm mb-2">
-              공유 링크
+              Share Link
             </label>
             <div className="flex gap-2">
               <input
@@ -113,43 +111,39 @@ export function ShareModal({
                 {copied ? (
                   <>
                     <Check size={16} />
-                    복사됨
+                    Copy됨
                   </>
                 ) : (
                   <>
                     <Copy size={16} />
-                    복사
+                    Copy
                   </>
                 )}
               </Button>
             </div>
             {copied && (
               <p className="text-green-400 text-xs mt-2">
-                ✓ 클립보드에 복사되었습니다
+                ✓ Copied to clipboard
               </p>
             )}
           </div>
 
           {/* Share ID */}
           <div>
-            <label className="block text-stone-400 text-xs mb-1">
-              공유 ID
-            </label>
-            <p className="text-stone-500 text-xs font-mono">
-              {shareId}
-            </p>
+            <label className="block text-stone-400 text-xs mb-1">Share ID</label>
+            <p className="text-stone-500 text-xs font-mono">{shareId}</p>
           </div>
 
           {/* Social Share */}
           <div>
             <label className="block text-stone-300 text-sm mb-3">
-              소셜 미디어로 공유
+              Share on Social Media
             </label>
             <div className="grid grid-cols-4 gap-3">
               <button
                 onClick={() => handleSocialShare("twitter")}
                 className="flex flex-col items-center gap-2 p-3 bg-stone-800 hover:bg-stone-700 border border-stone-600 rounded transition-colors"
-                aria-label="Twitter로 공유"
+                aria-label="Twitter로 Share"
               >
                 <Twitter size={20} className="text-[#1DA1F2]" />
                 <span className="text-xs text-stone-400">Twitter</span>
@@ -158,7 +152,7 @@ export function ShareModal({
               <button
                 onClick={() => handleSocialShare("facebook")}
                 className="flex flex-col items-center gap-2 p-3 bg-stone-800 hover:bg-stone-700 border border-stone-600 rounded transition-colors"
-                aria-label="Facebook으로 공유"
+                aria-label="Share on Facebook"
               >
                 <Facebook size={20} className="text-[#4267B2]" />
                 <span className="text-xs text-stone-400">Facebook</span>
@@ -167,7 +161,7 @@ export function ShareModal({
               <button
                 onClick={() => handleSocialShare("kakao")}
                 className="flex flex-col items-center gap-2 p-3 bg-stone-800 hover:bg-stone-700 border border-stone-600 rounded transition-colors"
-                aria-label="KakaoTalk으로 공유"
+                aria-label="Share on KakaoTalk"
               >
                 <div className="w-5 h-5 bg-[#FEE500] rounded flex items-center justify-center">
                   <span className="text-[#3C1E1E] text-xs font-bold">K</span>
@@ -178,7 +172,7 @@ export function ShareModal({
               <button
                 onClick={() => handleSocialShare("email")}
                 className="flex flex-col items-center gap-2 p-3 bg-stone-800 hover:bg-stone-700 border border-stone-600 rounded transition-colors"
-                aria-label="이메일로 공유"
+                aria-label="Email로 Share"
               >
                 <Mail size={20} className="text-stone-400" />
                 <span className="text-xs text-stone-400">Email</span>
@@ -190,7 +184,7 @@ export function ShareModal({
           {collaborators.length > 0 && (
             <div>
               <label className="block text-stone-300 text-sm mb-2">
-                협력자 ({collaborators.length})
+                Collaborators ({collaborators.length})
               </label>
               <div className="space-y-2 max-h-32 overflow-y-auto">
                 {collaborators.map((collaborator) => (
@@ -204,8 +198,12 @@ export function ShareModal({
                       </span>
                     </div>
                     <div className="flex-1">
-                      <p className="text-stone-200 text-sm">{collaborator.name}</p>
-                      <p className="text-stone-500 text-xs">{collaborator.email}</p>
+                      <p className="text-stone-200 text-sm">
+                        {collaborator.name}
+                      </p>
+                      <p className="text-stone-500 text-xs">
+                        {collaborator.email}
+                      </p>
                     </div>
                     <span className="text-xs text-stone-400 capitalize">
                       {collaborator.role}
@@ -225,7 +223,7 @@ export function ShareModal({
             size="md"
             className="w-full"
           >
-            닫기
+            Close
           </Button>
         </div>
       </div>

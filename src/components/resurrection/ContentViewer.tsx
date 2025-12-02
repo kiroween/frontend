@@ -37,10 +37,10 @@ export function ContentViewer({
               {title}
             </h2>
             <p className="text-amber-700 text-sm">
-              봉인일: {date}
+              Sealed on: {date}
             </p>
             <p className="text-amber-600 text-xs mt-1">
-              부활일: {new Date().toLocaleDateString("ko-KR")}
+              Resurrected on: {new Date().toLocaleDateString("ko-KR")}
             </p>
           </div>
 
@@ -50,28 +50,28 @@ export function ContentViewer({
               <div className="text-center space-y-4">
                 <div className="text-6xl">🔒</div>
                 <h3 className="font-cinzel text-2xl text-stone-300">
-                  봉인된 기억
+                  Sealed Memory
                 </h3>
                 <p className="text-stone-400">
-                  이 타임캡슐은 아직 잠겨있습니다
+                  This time capsule is still locked
                 </p>
                 {daysRemaining !== undefined && (
                   <div className="space-y-2">
                     <p className="text-[var(--soul-blue)] text-4xl font-bold">
-                      {daysRemaining}일
+                      {daysRemaining}days
                     </p>
-                    <p className="text-stone-500 text-sm">남은 시간</p>
+                    <p className="text-stone-500 text-sm">remaining</p>
                   </div>
                 )}
                 <p className="text-stone-500 text-sm">
-                  잠금 해제일: {timeCapsule.openDate.toLocaleDateString('ko-KR')}
+                  잠금 해제days: {timeCapsule.openDate.toLocaleDateString('ko-KR')}
                 </p>
               </div>
             </div>
           ) : (
             <div className="bg-amber-50/50 border-2 border-amber-900/20 rounded-lg p-6">
               <h3 className="font-cinzel text-xl text-amber-900 mb-4">
-                과거로부터의 메시지
+                Message from the past
               </h3>
               <p className="text-amber-800 whitespace-pre-wrap leading-relaxed">
                 {message}
@@ -83,7 +83,7 @@ export function ContentViewer({
           {!isLocked && files.length > 0 && (
             <div className="space-y-4">
               <h3 className="font-cinzel text-xl text-amber-900">
-                봉인된 기억들 ({files.length})
+                Sealed Memory들 ({files.length})
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {files.map((file, index) => (
@@ -121,7 +121,7 @@ export function ContentViewer({
                     onClick={onShare}
                     className="flex-1 bg-amber-100 text-amber-900 border-2 border-amber-900/30 hover:bg-amber-200"
                   >
-                    🔗 공유
+                    🔗 Share
                   </Button>
                 )}
                 <Button
@@ -130,7 +130,7 @@ export function ContentViewer({
                   onClick={onDownload}
                   className="flex-1 bg-amber-100 text-amber-900 border-2 border-amber-900/30 hover:bg-amber-200"
                 >
-                  💾 다운로드
+                  💾 Download
                 </Button>
                 <Button
                   variant="seal"
@@ -138,7 +138,7 @@ export function ContentViewer({
                   onClick={onRebury}
                   className="flex-1"
                 >
-                  🪦 다시 묻기
+                  🪦 Rebury
                 </Button>
               </>
             ) : (
@@ -148,7 +148,7 @@ export function ContentViewer({
                 onClick={() => window.history.back()}
                 className="flex-1 bg-stone-800 text-stone-300 border-2 border-stone-700 hover:bg-stone-700"
               >
-                ← 돌아가기
+                ← Go Back
               </Button>
             )}
           </div>
@@ -157,7 +157,7 @@ export function ContentViewer({
 
       {/* Time Rot Effect */}
       <div className="text-center text-amber-700/60 text-sm italic">
-        &ldquo;시간이 흘러도 기억은 남습니다&rdquo;
+        &ldquo;Memories remain even as time passes&rdquo;
       </div>
     </div>
   );

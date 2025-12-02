@@ -21,7 +21,7 @@ export function CollaboratorList({
   const handleRemove = async (collaboratorId: string) => {
     if (!onRemove) return;
 
-    const confirmed = confirm("이 협력자를 제거하시겠습니까?");
+    const confirmed = confirm("Remove this collaborator?");
     if (!confirmed) return;
 
     setRemovingId(collaboratorId);
@@ -48,18 +48,18 @@ export function CollaboratorList({
   const getRoleLabel = (role: Collaborator["role"]) => {
     switch (role) {
       case "owner":
-        return "소유자";
+        return "Owner";
       case "editor":
-        return "편집자";
+        return "Editor";
       case "viewer":
-        return "뷰어";
+        return "Viewer";
     }
   };
 
   if (collaborators.length === 0) {
     return (
       <div className="text-center py-8 text-stone-500">
-        <p>아직 협력자가 없습니다</p>
+        <p>No collaborators yet</p>
       </div>
     );
   }
@@ -103,7 +103,7 @@ export function CollaboratorList({
               {collaborator.email}
             </p>
             <p className="text-stone-600 text-xs mt-1">
-              참여일: {new Date(collaborator.joinedAt).toLocaleDateString("ko-KR")}
+              Joined: {new Date(collaborator.joinedAt).toLocaleDateString("ko-KR")}
             </p>
           </div>
 
@@ -117,7 +117,7 @@ export function CollaboratorList({
               className="flex items-center gap-2 text-red-400 hover:text-red-300"
             >
               <UserMinus size={16} />
-              {removingId === collaborator.id ? "제거 중..." : "제거"}
+              {removingId === collaborator.id ? "Removing..." : "Remove"}
             </Button>
           )}
         </div>

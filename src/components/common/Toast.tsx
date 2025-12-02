@@ -39,7 +39,7 @@ export function Toast({ message, type = "info", duration = 3000, onClose }: Toas
       <button
         onClick={onClose}
         className="text-stone-400 hover:text-stone-200 transition-colors"
-        aria-label="닫기"
+        aria-label="Close"
       >
         <X size={16} />
       </button>

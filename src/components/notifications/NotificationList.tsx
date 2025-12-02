@@ -87,7 +87,7 @@ export function NotificationList({ onClose }: NotificationListProps) {
             <button
               onClick={onClose}
               className="text-stone-400 hover:text-stone-200 transition-colors"
-              aria-label="닫기"
+              aria-label="Close"
             >
               <X size={20} />
             </button>
@@ -177,7 +177,7 @@ function formatRelativeTime(date: Date): string {
   if (days > 7) {
     return new Date(date).toLocaleDateString("ko-KR");
   } else if (days > 0) {
-    return `${days}일 전`;
+    return `${days}days 전`;
   } else if (hours > 0) {
     return `${hours}시간 전`;
   } else if (minutes > 0) {

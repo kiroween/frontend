@@ -38,24 +38,24 @@ export default function ViewPage() {
       try {
         setIsLoading(true);
         setError(null);
-        
+
         const response = await gravesApi.getById(params.id as string);
         setCapsuleData(response.data);
       } catch (err) {
         const apiError = err as ApiError;
-        
+
         // Handle specific error codes
         if (apiError.code === ApiErrorCode.NOT_FOUND) {
-          setError("타임캡슐을 찾을 수 없습니다");
-          showToast("타임캡슐을 찾을 수 없습니다", "error");
+          setError("Time capsule not found");
+          showToast("Time capsule not found", "error");
         } else if (apiError.code === ApiErrorCode.FORBIDDEN) {
-          setError("접근 권한이 없습니다");
-          showToast("접근 권한이 없습니다", "error");
+          setError("Access denied");
+          showToast("Access denied", "error");
         } else {
-          setError(apiError.message || "타임캡슐을 불러오는데 실패했습니다");
-          showToast(apiError.message || "타임캡슐을 불러오는데 실패했습니다", "error");
+          setError(apiError.message || "Failed to load time capsule");
+          showToast(apiError.message || "Failed to load time capsule", "error");
         }
-        
+
         // Redirect to graveyard after showing error
         setTimeout(() => {
           router.push("/graveyard");
@@ -70,9 +70,10 @@ export default function ViewPage() {
     }
   }, [params.id, router, showToast]);
 
-  const daysRemaining = capsuleData?.status === 'locked' 
-    ? calculateDaysRemaining(capsuleData.openDate) 
-    : undefined;
+  const daysRemaining =
+    capsuleData?.status === "locked"
+      ? calculateDaysRemaining(capsuleData.openDate)
+      : undefined;
 
   const handleAnimationComplete = () => {
     setShowAnimation(false);
@@ -80,7 +81,7 @@ export default function ViewPage() {
   };
 
   const handleRebury = () => {
-    // TODO: 다시 묻기 로직
+    // TODO: Rebury logic
     router.push("/graveyard");
   };
 
@@ -104,7 +105,9 @@ export default function ViewPage() {
         <div className="relative z-20 flex items-center justify-center min-h-screen">
           <div className="text-center space-y-4">
             <div className="text-6xl animate-pulse">⏳</div>
-            <p className="text-[var(--soul-blue)] text-xl">타임캡슐을 불러오는 중...</p>
+            <p className="text-[var(--soul-blue)] text-xl">
+              Loading time capsule...
+            </p>
           </div>
         </div>
       </main>
@@ -120,8 +123,10 @@ export default function ViewPage() {
         <div className="relative z-20 flex items-center justify-center min-h-screen">
           <div className="text-center space-y-4">
             <div className="text-6xl">❌</div>
-            <p className="text-red-400 text-xl">{error || "타임캡슐을 불러올 수 없습니다"}</p>
-            <p className="text-stone-400 text-sm">묘지 목록으로 돌아갑니다...</p>
+            <p className="text-red-400 text-xl">
+              {error || "Failed to load time capsule"}
+            </p>
+            <p className="text-stone-400 text-sm">Returning to graveyard...</p>
           </div>
         </div>
       </main>
@@ -149,7 +154,7 @@ export default function ViewPage() {
             />
 
             {/* Share and Download Modals - Only show if unlocked */}
-            {capsuleData.status === 'unlocked' && (
+            {capsuleData.status === "unlocked" && (
               <div className="fixed bottom-8 right-8 flex gap-4 z-50">
                 {showShareModal && (
                   <ShareButton

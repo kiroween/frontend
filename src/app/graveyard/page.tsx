@@ -45,7 +45,7 @@ export default function GraveyardPage() {
         setTombstones(response.data);
       } catch (error: any) {
         console.error('Failed to fetch tombstones:', error);
-        showToast(error.message || '타임캡슐 목록을 불러오는데 실패했습니다', 'error');
+        showToast(error.message || 'Time Capsule 목록을 불러오는데 실패했습니다', 'error');
       } finally {
         setIsLoading(false);
       }
@@ -85,7 +85,7 @@ export default function GraveyardPage() {
             나의 묘지
           </h1>
           <p className="text-stone-500 text-lg">
-            봉인된 기억들이 부활을 기다립니다
+            Sealed Memory들이 부활을 기다립니다
           </p>
         </div>
 

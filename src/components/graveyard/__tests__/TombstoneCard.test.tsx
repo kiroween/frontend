@@ -82,11 +82,11 @@ describe('TombstoneCard Property-Based Tests', () => {
               expect(screen.queryByText(capsule.description)).not.toBeInTheDocument();
 
               // Should show locked status
-              expect(screen.getByText('봉인된 기억')).toBeInTheDocument();
+              expect(screen.getByText('Sealed Memory')).toBeInTheDocument();
 
               // Should show days remaining
-              expect(screen.getByText(`${daysRemaining}일`)).toBeInTheDocument();
-              expect(screen.getByText('남은 시간')).toBeInTheDocument();
+              expect(screen.getByText(`${daysRemaining}days`)).toBeInTheDocument();
+              expect(screen.getByText('remaining')).toBeInTheDocument();
 
               // Should show lock icon
               expect(container.textContent).toContain('🔒');
@@ -117,7 +117,7 @@ describe('TombstoneCard Property-Based Tests', () => {
 
             try {
               // Days remaining should be displayed
-              const daysElement = screen.getByText(`${daysRemaining}일`);
+              const daysElement = screen.getByText(`${daysRemaining}days`);
               expect(daysElement).toBeInTheDocument();
             } finally {
               cleanup();
@@ -177,11 +177,11 @@ describe('TombstoneCard Property-Based Tests', () => {
             // Should show "부활하기" button
             expect(screen.getByText('부활하기')).toBeInTheDocument();
 
-            // Should NOT show "봉인된 기억"
-            expect(screen.queryByText('봉인된 기억')).not.toBeInTheDocument();
+            // Should NOT show "Sealed Memory"
+            expect(screen.queryByText('Sealed Memory')).not.toBeInTheDocument();
 
             // Should NOT show days remaining
-            expect(screen.queryByText('남은 시간')).not.toBeInTheDocument();
+            expect(screen.queryByText('remaining')).not.toBeInTheDocument();
           } finally {
             cleanup();
           }
@@ -196,8 +196,8 @@ describe('TombstoneCard Property-Based Tests', () => {
           render(<TombstoneCard timeCapsule={capsule} />);
 
           // Days remaining should NOT be displayed
-          expect(screen.queryByText(/\d+일/)).not.toBeInTheDocument();
-          expect(screen.queryByText('남은 시간')).not.toBeInTheDocument();
+          expect(screen.queryByText(/\d+days/)).not.toBeInTheDocument();
+          expect(screen.queryByText('remaining')).not.toBeInTheDocument();
         }),
         { numRuns: 100 }
       );
@@ -261,15 +261,15 @@ describe('TombstoneCard Property-Based Tests', () => {
             try {
               if (capsule.status === 'locked') {
                 // Locked UI
-                expect(screen.getByText('봉인된 기억')).toBeInTheDocument();
-                expect(screen.getByText(`${daysRemaining}일`)).toBeInTheDocument();
+                expect(screen.getByText('Sealed Memory')).toBeInTheDocument();
+                expect(screen.getByText(`${daysRemaining}days`)).toBeInTheDocument();
                 expect(screen.queryByText('부활하기')).not.toBeInTheDocument();
                 expect(container.textContent).toContain('🔒');
               } else {
                 // Unlocked UI
                 expect(screen.getByText('부활 가능')).toBeInTheDocument();
                 expect(screen.getByText('부활하기')).toBeInTheDocument();
-                expect(screen.queryByText('봉인된 기억')).not.toBeInTheDocument();
+                expect(screen.queryByText('Sealed Memory')).not.toBeInTheDocument();
                 expect(container.textContent).toContain('💀');
               }
             } finally {

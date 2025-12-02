@@ -271,7 +271,7 @@ function generateHTMLFromContents(
   <div class="header">
     <h1>${escapeHtml(title)}</h1>
     ${description ? `<p class="meta">${escapeHtml(description)}</p>` : ""}
-    ${openDate ? `<p class="meta">오픈 날짜: ${openDate}</p>` : ""}
+    ${openDate ? `<p class="meta">Open Date: ${openDate}</p>` : ""}
   </div>
   
   ${contents
@@ -286,7 +286,7 @@ function generateHTMLFromContents(
     .join("")}
   
   <div class="footer">
-    <p>TimeGrave - 과거를 묻고, 미래를 부활하라</p>
+    <p>TimeGrave - Bury the past, Resurrect the future</p>
     <p>Downloaded: ${new Date().toLocaleString("ko-KR")}</p>
   </div>
 </body>

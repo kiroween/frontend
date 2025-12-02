@@ -109,7 +109,7 @@ export function validateFileUpload(
   if (file.size > maxSizeBytes) {
     return {
       valid: false,
-      error: `파일 크기는 ${maxSizeMB}MB를 초과할 수 없습니다.`,
+      error: `File size cannot exceed ${maxSizeMB}MB.`,
     };
   }
 
@@ -117,7 +117,7 @@ export function validateFileUpload(
   if (allowedTypes && !allowedTypes.includes(file.type)) {
     return {
       valid: false,
-      error: `허용되지 않는 파일 형식입니다.`,
+      error: `File type not allowed.`,
     };
   }
 

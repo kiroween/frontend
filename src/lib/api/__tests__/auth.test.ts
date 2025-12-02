@@ -74,11 +74,11 @@ describe('Authentication API', () => {
         status: 400,
         error: {
           code: 'VALIDATION_ERROR',
-          message: '입력값이 올바르지 않습니다',
+          message: 'Invalid input',
           details: {
-            email: '이메일 형식이 올바르지 않습니다',
-            password: '비밀번호는 최소 8자 이상이어야 합니다',
-            username: '사용자 이름은 필수 항목입니다',
+            email: 'Invalid email format',
+            password: 'Password must be at least 8 characters',
+            username: 'Username is required',
           },
         },
       };
@@ -95,7 +95,7 @@ describe('Authentication API', () => {
         expect.fail('Should have thrown an error');
       } catch (error: any) {
         expect(error.code).toBe(ApiErrorCode.VALIDATION_ERROR);
-        expect(error.message).toBe('입력값이 올바르지 않습니다');
+        expect(error.message).toBe('Invalid input');
         expect(error.statusCode).toBe(400);
         expect(error.details).toBeDefined();
       }
@@ -113,7 +113,7 @@ describe('Authentication API', () => {
         status: 409,
         error: {
           code: 'CONFLICT',
-          message: '이미 존재하는 이메일입니다',
+          message: 'Email already exists',
         },
       };
 
@@ -128,7 +128,7 @@ describe('Authentication API', () => {
         await authApi.signUp(signUpData);
         expect.fail('Should have thrown an error');
       } catch (error: any) {
-        expect(error.message).toBe('이미 존재하는 이메일입니다');
+        expect(error.message).toBe('Email already exists');
         expect(error.statusCode).toBe(409);
       }
     });
@@ -196,7 +196,7 @@ describe('Authentication API', () => {
         status: 401,
         error: {
           code: 'UNAUTHORIZED',
-          message: '이메일 또는 비밀번호가 올바르지 않습니다',
+          message: 'Invalid email or password',
         },
       };
 
@@ -212,7 +212,7 @@ describe('Authentication API', () => {
         expect.fail('Should have thrown an error');
       } catch (error: any) {
         expect(error.code).toBe(ApiErrorCode.UNAUTHORIZED);
-        expect(error.message).toBe('이메일 또는 비밀번호가 올바르지 않습니다');
+        expect(error.message).toBe('Invalid email or password');
         expect(error.statusCode).toBe(401);
       }
     });
@@ -228,7 +228,7 @@ describe('Authentication API', () => {
         status: 401,
         error: {
           code: 'UNAUTHORIZED',
-          message: '이메일 또는 비밀번호가 올바르지 않습니다',
+          message: 'Invalid email or password',
         },
       };
 
@@ -274,7 +274,7 @@ describe('Authentication API', () => {
         status: 200,
         data: {
           result: null,
-          response: '로그아웃되었습니다',
+          response: 'Logged out successfully',
         },
       };
 
@@ -289,7 +289,7 @@ describe('Authentication API', () => {
 
       // Assert
       expect(response.status).toBe(200);
-      expect(response.message).toBe('로그아웃되었습니다');
+      expect(response.message).toBe('Logged out successfully');
 
       // Verify the request was made to the correct endpoint
       const fetchCall = (global.fetch as any).mock.calls[0];
@@ -303,7 +303,7 @@ describe('Authentication API', () => {
         status: 401,
         error: {
           code: 'UNAUTHORIZED',
-          message: '인증이 필요합니다',
+          message: 'Authentication required',
         },
       };
 
@@ -328,7 +328,7 @@ describe('Authentication API', () => {
       const mockErrorResponse = {
         status: 500,
         error: {
-          message: '서버 오류가 발생했습니다',
+          message: 'Server error occurred',
         },
       };
 
@@ -358,7 +358,7 @@ describe('Authentication API', () => {
           result: {
             deleted_graves_count: 5,
           },
-          response: '계정이 삭제되었습니다',
+          response: 'Account deleted successfully',
         },
       };
 
@@ -374,7 +374,7 @@ describe('Authentication API', () => {
       // Assert
       expect(response.status).toBe(200);
       expect(response.data.deletedGravesCount).toBe(5);
-      expect(response.message).toBe('계정이 삭제되었습니다');
+      expect(response.message).toBe('Account deleted successfully');
 
       // Verify the request was made to the correct endpoint
       const fetchCall = (global.fetch as any).mock.calls[0];
@@ -388,7 +388,7 @@ describe('Authentication API', () => {
         status: 401,
         error: {
           code: 'UNAUTHORIZED',
-          message: '인증이 필요합니다',
+          message: 'Authentication required',
         },
       };
 
@@ -416,7 +416,7 @@ describe('Authentication API', () => {
           result: {
             deleted_graves_count: 0,
           },
-          response: '계정이 삭제되었습니다',
+          response: 'Account deleted successfully',
         },
       };
 

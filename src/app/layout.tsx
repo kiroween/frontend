@@ -17,9 +17,9 @@ const cinzel = Cinzel({
 });
 
 export const metadata: Metadata = {
-  title: "TimeGrave - 과거를 묻고, 미래를 부활하라",
+  title: "TimeGrave - Bury the past, Resurrect the future",
   description: "기억의 사후 세계, TimeGrave에 오신 것을 환영합니다.",
-  keywords: ["타임캡슐", "기억", "추억", "미래", "TimeGrave"],
+  keywords: ["Time Capsule", "기억", "추억", "미래", "TimeGrave"],
   authors: [{ name: "TimeGrave Team" }],
 };
 

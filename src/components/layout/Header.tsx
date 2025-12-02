@@ -65,7 +65,7 @@ export function Header() {
                 onClick={handleSignOut}
                 className="text-stone-400 hover:text-stone-200 transition-colors text-sm"
               >
-                로그아웃
+                Logout
               </button>
             </>
           ) : (
@@ -74,11 +74,11 @@ export function Header() {
                 href="/login"
                 className="text-stone-400 hover:text-stone-200 transition-colors text-sm"
               >
-                로그인
+                Login
               </Link>
               <Link href="/signup">
                 <Button variant="seal" size="sm">
-                  회원가입
+                  Sign Up
                 </Button>
               </Link>
             </>

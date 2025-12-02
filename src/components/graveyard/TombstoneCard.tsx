@@ -70,11 +70,11 @@ export function TombstoneCard({
       <div className="text-center mb-6">
         {locked ? (
           <div className="space-y-2">
-            <p className="text-stone-500 text-sm">봉인된 기억</p>
+            <p className="text-stone-500 text-sm">Sealed Memory</p>
             <p className="text-[var(--soul-blue)] text-2xl font-bold">
-              {daysLeft}일
+              {daysLeft}days
             </p>
-            <p className="text-stone-600 text-xs">남은 시간</p>
+            <p className="text-stone-600 text-xs">remaining</p>
           </div>
         ) : (
           <div className="space-y-2">

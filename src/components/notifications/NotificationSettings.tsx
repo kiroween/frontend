@@ -32,10 +32,10 @@ export function NotificationSettings({ settings: initialSettings, onUpdate }: No
 
     try {
       await onUpdate(settings);
-      setSaveMessage("설정이 저장되었습니다.");
+      setSaveMessage("설정이 Save되었습니다.");
       setTimeout(() => setSaveMessage(null), 3000);
     } catch (error) {
-      setSaveMessage("설정 저장에 실패했습니다.");
+      setSaveMessage("설정 Save에 실패했습니다.");
       console.error("Failed to save settings:", error);
     } finally {
       setIsSaving(false);
@@ -54,7 +54,7 @@ export function NotificationSettings({ settings: initialSettings, onUpdate }: No
       setSettings((prev) => ({ ...prev, pushEnabled: true }));
       alert("푸시 알림이 활성화되었습니다!");
     } else {
-      alert("푸시 알림 권한이 거부되었습니다.");
+      alert("푸시 알림 permission이 거부되었습니다.");
     }
   };
 
@@ -80,36 +80,36 @@ export function NotificationSettings({ settings: initialSettings, onUpdate }: No
         
         <div className="space-y-4">
           <ToggleItem
-            label="타임캡슐 오픈"
-            description="타임캡슐이 열릴 때 알림을 받습니다"
+            label="Time Capsule 오픈"
+            description="Time Capsule이 열릴 때 알림을 받습니다"
             checked={settings.capsuleOpened}
             onChange={() => handleToggle("capsuleOpened")}
           />
 
           <ToggleItem
             label="초대 알림"
-            description="타임캡슐에 초대되었을 때 알림을 받습니다"
+            description="Time Capsule에 초대되었을 때 알림을 받습니다"
             checked={settings.invitations}
             onChange={() => handleToggle("invitations")}
           />
 
           <ToggleItem
             label="콘텐츠 추가"
-            description="협력자가 콘텐츠를 추가했을 때 알림을 받습니다"
+            description="Collaborators가 콘텐츠를 추가했을 때 알림을 받습니다"
             checked={settings.contentAdded}
             onChange={() => handleToggle("contentAdded")}
           />
 
           <ToggleItem
             label="리마인더"
-            description="타임캡슐 오픈 전 리마인더를 받습니다"
+            description="Time Capsule 오픈 전 리마인더를 받습니다"
             checked={settings.reminders}
             onChange={() => handleToggle("reminders")}
           />
 
           <ToggleItem
-            label="협력자 활동"
-            description="협력자가 참여하거나 나갔을 때 알림을 받습니다"
+            label="Collaborators 활동"
+            description="Collaborators가 참여하거나 나갔을 때 알림을 받습니다"
             checked={settings.collaboratorActivity}
             onChange={() => handleToggle("collaboratorActivity")}
           />
@@ -148,7 +148,7 @@ export function NotificationSettings({ settings: initialSettings, onUpdate }: No
                   size="sm"
                   className="text-sm"
                 >
-                  권한 요청
+                  permission 요청
                 </Button>
               )}
             </div>
@@ -156,8 +156,8 @@ export function NotificationSettings({ settings: initialSettings, onUpdate }: No
 
           <ToggleItem
             icon={<Mail size={24} className="text-green-400" />}
-            label="이메일 알림"
-            description="이메일로 알림을 받습니다"
+            label="Email 알림"
+            description="Email로 알림을 받습니다"
             checked={settings.emailEnabled}
             onChange={() => handleToggle("emailEnabled")}
           />
@@ -172,7 +172,7 @@ export function NotificationSettings({ settings: initialSettings, onUpdate }: No
           variant="seal"
           size="lg"
         >
-          {isSaving ? "저장 중..." : "설정 저장"}
+          {isSaving ? "Save 중..." : "설정 Save"}
         </Button>
       </div>
     </div>

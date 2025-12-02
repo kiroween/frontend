@@ -27,7 +27,7 @@ describe('ShareButton', () => {
       />
     );
 
-    expect(screen.getByText('공유')).toBeInTheDocument();
+    expect(screen.getByText('Share')).toBeInTheDocument();
   });
 
   it('should show loading state when clicked', async () => {
@@ -43,11 +43,11 @@ describe('ShareButton', () => {
       />
     );
 
-    const button = screen.getByText('공유');
+    const button = screen.getByText('Share');
     fireEvent.click(button);
 
     await waitFor(() => {
-      expect(screen.getByText('생성 중...')).toBeInTheDocument();
+      expect(screen.getByText('Creating...')).toBeInTheDocument();
     });
   });
 
@@ -68,7 +68,7 @@ describe('ShareButton', () => {
       />
     );
 
-    const button = screen.getByText('공유');
+    const button = screen.getByText('Share');
     fireEvent.click(button);
 
     await waitFor(() => {
@@ -90,11 +90,11 @@ describe('ShareButton', () => {
       />
     );
 
-    const button = screen.getByText('공유');
+    const button = screen.getByText('Share');
     fireEvent.click(button);
 
     await waitFor(() => {
-      expect(screen.getByText(/공유 링크 생성에 실패했습니다/)).toBeInTheDocument();
+      expect(screen.getByText(/Failed to create share link/)).toBeInTheDocument();
     });
   });
 
@@ -118,7 +118,7 @@ describe('ShareButton', () => {
       />
     );
 
-    const button = screen.getByText('공유');
+    const button = screen.getByText('Share');
     fireEvent.click(button);
 
     await waitFor(() => {

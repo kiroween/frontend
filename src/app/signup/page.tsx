@@ -11,7 +11,7 @@ import Link from "next/link";
 export default function SignUpPage() {
   const router = useRouter();
   const { signUp } = useAuth();
-  
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -29,9 +29,9 @@ export default function SignUpPage() {
       await signUp(formData);
       // Success - redirect to login page
       router.push("/login");
-    } catch (err: any) {
+    } catch (err: unknown) {
       // Display error message
-      setError(err.message || "회원가입에 실패했습니다. 다시 시도해주세요.");
+      setError(err.message || "Sign up failed. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -54,25 +54,36 @@ export default function SignUpPage() {
       <div className="relative z-20 flex items-center justify-center min-h-screen px-4">
         <div className="w-full max-w-md animate-fade-in">
           {/* Stone Gate */}
-          <div className="stone-gate relative border-4 border-stone-700/80 rounded-lg p-8 bg-gradient-to-b from-stone-800/20 to-stone-900/30 backdrop-blur-md shadow-2xl">
+          <div className="relative border-4 border-stone-700/80 rounded-lg p-8 bg-gradient-to-b from-stone-800/20 to-stone-900/30 backdrop-blur-md shadow-2xl animate-[stoneRise_1.5s_ease-out]">
             {/* Ancient Runes Decoration */}
-            <div className="absolute top-4 left-4 text-stone-600 text-xs opacity-50">⚝</div>
-            <div className="absolute top-4 right-4 text-stone-600 text-xs opacity-50">⚝</div>
-            <div className="absolute bottom-4 left-4 text-stone-600 text-xs opacity-50">⚝</div>
-            <div className="absolute bottom-4 right-4 text-stone-600 text-xs opacity-50">⚝</div>
+            <div className="absolute top-4 left-4 text-stone-600 text-xs opacity-50">
+              ⚝
+            </div>
+            <div className="absolute top-4 right-4 text-stone-600 text-xs opacity-50">
+              ⚝
+            </div>
+            <div className="absolute bottom-4 left-4 text-stone-600 text-xs opacity-50">
+              ⚝
+            </div>
+            <div className="absolute bottom-4 right-4 text-stone-600 text-xs opacity-50">
+              ⚝
+            </div>
 
             <h1 className="font-cinzel text-4xl tracking-[0.2em] text-stone-300 mb-2 text-center">
-              회원가입
+              Sign Up
             </h1>
             <p className="text-stone-500 text-sm mb-8 text-center">
-              기억의 사후 세계에 입장하세요
+              Enter the afterlife of memories
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Email */}
               <div>
-                <label htmlFor="email" className="block text-stone-400 text-sm mb-2">
-                  이메일
+                <label
+                  htmlFor="email"
+                  className="block text-stone-400 text-sm mb-2"
+                >
+                  Email
                 </label>
                 <input
                   type="email"
@@ -88,8 +99,11 @@ export default function SignUpPage() {
 
               {/* Username */}
               <div>
-                <label htmlFor="username" className="block text-stone-400 text-sm mb-2">
-                  사용자 이름
+                <label
+                  htmlFor="username"
+                  className="block text-stone-400 text-sm mb-2"
+                >
+                  Username
                 </label>
                 <input
                   type="text"
@@ -99,14 +113,17 @@ export default function SignUpPage() {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 bg-stone-900/50 border border-stone-700 rounded-lg text-stone-200 placeholder-stone-600 focus:outline-none focus:border-[var(--soul-blue)] transition-colors"
-                  placeholder="사용자 이름"
+                  placeholder="Username"
                 />
               </div>
 
               {/* Password */}
               <div>
-                <label htmlFor="password" className="block text-stone-400 text-sm mb-2">
-                  비밀번호
+                <label
+                  htmlFor="password"
+                  className="block text-stone-400 text-sm mb-2"
+                >
+                  Password
                 </label>
                 <input
                   type="password"
@@ -135,37 +152,23 @@ export default function SignUpPage() {
                 className="w-full"
                 disabled={isLoading}
               >
-                {isLoading ? "처리 중..." : "회원가입"}
+                {isLoading ? "Processing..." : "Sign Up"}
               </Button>
             </form>
 
             {/* Login Link */}
             <div className="mt-6 text-center text-stone-500 text-sm">
-              이미 계정이 있으신가요?{" "}
-              <Link href="/login" className="text-[var(--soul-blue)] hover:underline">
-                로그인
+              Already have an account?{" "}
+              <Link
+                href="/login"
+                className="text-[var(--soul-blue)] hover:underline"
+              >
+                Login
               </Link>
             </div>
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        .stone-gate {
-          animation: stoneRise 1.5s ease-out;
-        }
-
-        @keyframes stoneRise {
-          from {
-            opacity: 0;
-            transform: translateY(40px) scale(0.95);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
-      `}</style>
     </main>
   );
 }

@@ -49,7 +49,7 @@ export function DownloadModal({
       }, 1500);
     } catch (error) {
       console.error("Download failed:", error);
-      alert("다운로드에 실패했습니다. 다시 시도해주세요.");
+      alert("Download에 실패했습니다. 다시 시도해주세요.");
     } finally {
       setIsDownloading(false);
       setProgress(null);
@@ -79,7 +79,7 @@ export function DownloadModal({
           onClick={onClose}
           disabled={isDownloading}
           className="absolute top-4 right-4 text-stone-400 hover:text-stone-200 transition-colors disabled:opacity-50"
-          aria-label="닫기"
+          aria-label="Close"
         >
           <X size={24} />
         </button>
@@ -87,7 +87,7 @@ export function DownloadModal({
         {/* Header */}
         <div className="p-6 border-b border-stone-700">
           <h2 className="font-cinzel text-2xl text-stone-200 mb-2">
-            콘텐츠 다운로드
+            콘텐츠 Download
           </h2>
           <p className="text-stone-400 text-sm">
             {metadata.title}
@@ -99,21 +99,21 @@ export function DownloadModal({
           {/* Download Format */}
           <div>
             <label className="block text-stone-300 text-sm mb-3">
-              다운로드 형식
+              Download 형식
             </label>
             <div className="grid grid-cols-3 gap-3">
               <FormatOption
                 icon={<Archive size={20} />}
-                label="ZIP 파일"
-                description="모든 파일을 압축"
+                label="ZIP 파days"
+                description="모든 파days을 압축"
                 selected={selectedFormat === "zip"}
                 onClick={() => setSelectedFormat("zip")}
                 disabled={isDownloading}
               />
               <FormatOption
                 icon={<File size={20} />}
-                label="개별 파일"
-                description="파일별로 다운로드"
+                label="개별 파days"
+                description="파days별로 Download"
                 selected={selectedFormat === "individual"}
                 onClick={() => setSelectedFormat("individual")}
                 disabled={isDownloading}
@@ -133,7 +133,7 @@ export function DownloadModal({
           <div>
             <div className="flex items-center justify-between mb-3">
               <label className="text-stone-300 text-sm">
-                파일 선택 ({selectedItems.length}/{contents.length})
+                파days 선택 ({selectedItems.length}/{contents.length})
               </label>
               <button
                 onClick={toggleAll}
@@ -188,7 +188,7 @@ export function DownloadModal({
               <div>
                 <p className="text-stone-200 text-sm">메타데이터 포함</p>
                 <p className="text-stone-500 text-xs">
-                  타임캡슐 정보를 JSON 파일로 포함합니다
+                  Time Capsule 정보를 JSON 파days로 포함합니다
                 </p>
               </div>
             </label>
@@ -208,7 +208,7 @@ export function DownloadModal({
           {isDownloading && progress && (
             <div className="p-4 bg-stone-800/50 rounded-lg border border-stone-700">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-stone-300 text-sm">다운로드 중...</span>
+                <span className="text-stone-300 text-sm">Download 중...</span>
                 <span className="text-soul-blue text-sm font-medium">
                   {progress.percentage}%
                 </span>
@@ -237,7 +237,7 @@ export function DownloadModal({
             size="md"
             className="flex-1"
           >
-            취소
+            Cancel
           </Button>
           <Button
             onClick={handleDownload}
@@ -247,7 +247,7 @@ export function DownloadModal({
             className="flex-1 flex items-center justify-center gap-2"
           >
             <Download size={16} />
-            {isDownloading ? "다운로드 중..." : "다운로드"}
+            {isDownloading ? "Download 중..." : "Download"}
           </Button>
         </div>
       </div>

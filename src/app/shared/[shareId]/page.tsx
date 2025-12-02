@@ -13,8 +13,8 @@ export async function generateMetadata({ params }: SharedPageProps): Promise<Met
   
   // TODO: Fetch time capsule data from API
   // For now, use placeholder data
-  const title = "TimeGrave - 타임캡슐 공유";
-  const description = "TimeGrave에서 공유된 타임캡슐을 확인해보세요.";
+  const title = "TimeGrave - Time Capsule Share";
+  const description = "TimeGrave에서 Share된 Time Capsule을 Confirm해보세요.";
   const imageUrl = "/og-image.png"; // TODO: Generate dynamic OG image
 
   return {
@@ -54,7 +54,7 @@ export default async function SharedTimeCapsulePage({ params }: SharedPageProps)
       <div className="max-w-4xl mx-auto">
         <div className="bg-gradient-to-b from-stone-900 to-stone-950 border-2 border-stone-700 rounded-lg p-8">
           <h1 className="font-cinzel text-4xl text-stone-200 mb-4">
-            공유된 타임캡슐
+            Share된 Time Capsule
           </h1>
           <p className="text-stone-400 mb-8">
             Share ID: {shareId}
@@ -62,7 +62,7 @@ export default async function SharedTimeCapsulePage({ params }: SharedPageProps)
           
           <div className="text-stone-500">
             <p>이 페이지는 백엔드 API 연동 후 완성됩니다.</p>
-            <p className="mt-2">타임캡슐 데이터를 불러오는 중...</p>
+            <p className="mt-2">Time Capsule 데이터를 불러오는 중...</p>
           </div>
         </div>
       </div>

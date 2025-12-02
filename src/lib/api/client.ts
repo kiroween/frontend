@@ -2,8 +2,8 @@
  * API Client for backend communication
  */
 
-import { ApiConfig, ApiResponse, ApiError, ApiErrorCode } from '../types/api';
-import { tokenStorage } from '../auth/tokenStorage';
+import { ApiConfig, ApiResponse, ApiError, ApiErrorCode } from "../types/api";
+import { tokenStorage } from "../auth/tokenStorage";
 
 const DEFAULT_TIMEOUT = 30000; // 30 seconds
 
@@ -14,10 +14,10 @@ export class ApiClient {
   private unauthorizedHandler?: () => void;
 
   constructor(config: Partial<ApiConfig> = {}) {
-    this.baseUrl = config.baseUrl || process.env.NEXT_PUBLIC_API_URL || '';
+    this.baseUrl = config.baseUrl || process.env.NEXT_PUBLIC_API_URL || "";
     this.timeout = config.timeout || DEFAULT_TIMEOUT;
     this.defaultHeaders = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       ...config.headers,
     };
   }
@@ -64,8 +64,11 @@ export class ApiClient {
     }
   }
 
-  async get<T>(endpoint: string, options?: RequestInit): Promise<ApiResponse<T>> {
-    return this.request<T>(endpoint, { ...options, method: 'GET' });
+  async get<T>(
+    endpoint: string,
+    options?: RequestInit
+  ): Promise<ApiResponse<T>> {
+    return this.request<T>(endpoint, { ...options, method: "GET" });
   }
 
   async post<T>(
@@ -75,7 +78,7 @@ export class ApiClient {
   ): Promise<ApiResponse<T>> {
     return this.request<T>(endpoint, {
       ...options,
-      method: 'POST',
+      method: "POST",
       body: body ? JSON.stringify(body) : undefined,
     });
   }
@@ -87,24 +90,32 @@ export class ApiClient {
   ): Promise<ApiResponse<T>> {
     return this.request<T>(endpoint, {
       ...options,
-      method: 'PUT',
+      method: "PUT",
       body: body ? JSON.stringify(body) : undefined,
     });
   }
 
-  async delete<T>(endpoint: string, options?: RequestInit): Promise<ApiResponse<T>> {
-    return this.request<T>(endpoint, { ...options, method: 'DELETE' });
+  async delete<T>(
+    endpoint: string,
+    options?: RequestInit
+  ): Promise<ApiResponse<T>> {
+    return this.request<T>(endpoint, { ...options, method: "DELETE" });
   }
 
   /**
    * Unwrap backend success response format: {status, data: {result}}
    */
-  private unwrapBackendResponse<T>(data: unknown, status: number): ApiResponse<T> {
+  private unwrapBackendResponse<T>(
+    data: unknown,
+    status: number
+  ): ApiResponse<T> {
     // Check if data follows backend format
-    if (data && typeof data === 'object' && 'data' in data) {
-      const backendData = data as { data?: { result?: T; response?: string; message?: string } };
-      
-      if (backendData.data && 'result' in backendData.data) {
+    if (data && typeof data === "object" && "data" in data) {
+      const backendData = data as {
+        data?: { result?: T; response?: string; message?: string };
+      };
+
+      if (backendData.data && "result" in backendData.data) {
         return {
           data: backendData.data.result as T,
           status,
@@ -157,9 +168,11 @@ export class ApiClient {
     let message = this.getDefaultErrorMessage(code);
     let errorDetails = data;
 
-    if (data && typeof data === 'object' && 'error' in data) {
-      const backendError = data as { error?: { code?: string; message?: string; details?: unknown } };
-      
+    if (data && typeof data === "object" && "error" in data) {
+      const backendError = data as {
+        error?: { code?: string; message?: string; details?: unknown };
+      };
+
       if (backendError.error) {
         // Prefer backend's Korean error message if provided
         // This allows the backend to send localized error messages
@@ -185,10 +198,10 @@ export class ApiClient {
   private handleUnauthorized(): void {
     // Remove the stored token
     tokenStorage.removeToken();
-    
+
     // Remove auth token from API client headers
     this.removeAuthToken();
-    
+
     // Call the unauthorized handler if set (e.g., redirect to login)
     if (this.unauthorizedHandler) {
       this.unauthorizedHandler();
@@ -203,26 +216,27 @@ export class ApiClient {
 
     if (error instanceof Error) {
       // Handle timeout errors
-      if (error.name === 'AbortError') {
+      if (error.name === "AbortError") {
         return {
           code: ApiErrorCode.TIMEOUT,
-          message: '요청 시간이 초과되었습니다. 잠시 후 다시 시도해주세요.',
+          message: "Request timed out. Please try again later.",
         };
       }
 
       // Handle network errors - check for various network-related error messages
       const errorMessage = error.message.toLowerCase();
       if (
-        errorMessage.includes('fetch') ||
-        errorMessage.includes('network') ||
-        errorMessage.includes('failed to fetch') ||
-        errorMessage.includes('networkerror') ||
-        errorMessage.includes('connection') ||
-        error.name === 'TypeError' && errorMessage.includes('fetch')
+        errorMessage.includes("fetch") ||
+        errorMessage.includes("network") ||
+        errorMessage.includes("failed to fetch") ||
+        errorMessage.includes("networkerror") ||
+        errorMessage.includes("connection") ||
+        (error.name === "TypeError" && errorMessage.includes("fetch"))
       ) {
         return {
           code: ApiErrorCode.NETWORK_ERROR,
-          message: '네트워크 연결을 확인해주세요. 인터넷 연결 상태를 확인하거나 잠시 후 다시 시도해주세요.',
+          message:
+            "Please check your network connection. Verify your internet connection or try again later.",
         };
       }
     }
@@ -230,17 +244,17 @@ export class ApiClient {
     // Unknown error
     return {
       code: ApiErrorCode.UNKNOWN,
-      message: '알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
+      message: "An unknown error occurred. Please try again later.",
       details: error,
     };
   }
 
   private isApiError(error: unknown): error is ApiError {
     return (
-      typeof error === 'object' &&
+      typeof error === "object" &&
       error !== null &&
-      'code' in error &&
-      'message' in error
+      "code" in error &&
+      "message" in error
     );
   }
 
@@ -250,25 +264,30 @@ export class ApiClient {
    */
   private getDefaultErrorMessage(code: ApiErrorCode): string {
     const errorMessages: Record<ApiErrorCode, string> = {
-      [ApiErrorCode.NETWORK_ERROR]: '네트워크 연결을 확인해주세요. 인터넷 연결 상태를 확인하거나 잠시 후 다시 시도해주세요.',
-      [ApiErrorCode.UNAUTHORIZED]: '로그인이 필요합니다. 다시 로그인해주세요.',
-      [ApiErrorCode.FORBIDDEN]: '접근 권한이 없습니다. 이 작업을 수행할 권한이 없습니다.',
-      [ApiErrorCode.NOT_FOUND]: '요청한 리소스를 찾을 수 없습니다.',
-      [ApiErrorCode.VALIDATION_ERROR]: '입력 정보를 확인해주세요. 올바른 형식으로 입력했는지 확인해주세요.',
-      [ApiErrorCode.SERVER_ERROR]: '서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
-      [ApiErrorCode.TIMEOUT]: '요청 시간이 초과되었습니다. 잠시 후 다시 시도해주세요.',
-      [ApiErrorCode.UNKNOWN]: '알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
+      [ApiErrorCode.NETWORK_ERROR]:
+        "Please check your network connection. Verify your internet connection or try again later.",
+      [ApiErrorCode.UNAUTHORIZED]: "Login required. Please log in again.",
+      [ApiErrorCode.FORBIDDEN]:
+        "Access denied. You do not have permission to perform this action.",
+      [ApiErrorCode.NOT_FOUND]: "Requested resource not found.",
+      [ApiErrorCode.VALIDATION_ERROR]:
+        "Please check your input. Make sure you entered it in the correct format.",
+      [ApiErrorCode.SERVER_ERROR]:
+        "Server error occurred. Please try again later.",
+      [ApiErrorCode.TIMEOUT]: "Request timed out. Please try again later.",
+      [ApiErrorCode.UNKNOWN]:
+        "An unknown error occurred. Please try again later.",
     };
 
     return errorMessages[code];
   }
 
   setAuthToken(token: string): void {
-    this.defaultHeaders['Authorization'] = `Bearer ${token}`;
+    this.defaultHeaders["Authorization"] = `Bearer ${token}`;
   }
 
   removeAuthToken(): void {
-    delete this.defaultHeaders['Authorization'];
+    delete this.defaultHeaders["Authorization"];
   }
 }
 

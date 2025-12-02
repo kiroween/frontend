@@ -36,22 +36,22 @@ export default function LandingPage() {
             </h1>
 
             <div className="space-y-6 text-stone-400 text-lg md:text-xl mb-12">
-              <p className="font-cinzel italic">&ldquo;과거를 묻고,&rdquo;</p>
+              <p className="font-cinzel italic">&ldquo;Bury the past,&rdquo;</p>
               <p className="font-cinzel italic">
-                &ldquo;미래를 부활하라&rdquo;
+                &ldquo;Resurrect the future&rdquo;
               </p>
             </div>
 
             <p className="text-stone-500 text-sm mb-8 max-w-md mx-auto">
-              기억의 사후 세계에 오신 것을 환영합니다.
+              Welcome to the afterlife of memories.
               <br />
-              당신의 과거를 봉인하고, 정해진 시간에 부활시키세요.
+              Seal your past and resurrect it at the appointed time.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link href="/signup">
                 <Button variant="seal" size="lg" className="animate-slide-up">
-                  회원가입
+                  Sign Up
                 </Button>
               </Link>
               <Link href="/login">
@@ -61,7 +61,7 @@ export default function LandingPage() {
                   className="animate-slide-up"
                   style={{ animationDelay: "100ms" }}
                 >
-                  로그인
+                  Login
                 </Button>
               </Link>
             </div>
@@ -71,7 +71,7 @@ export default function LandingPage() {
                 href="/graveyard"
                 className="text-stone-500 hover:text-stone-400 text-sm transition-colors"
               >
-                또는 둘러보기 →
+                or Explore →
               </Link>
             </div>
           </div>

@@ -29,7 +29,7 @@ export default function CreatePage() {
       
       // Validate unlock date is in the future
       if (unlockDate <= new Date()) {
-        showToast("잠금 해제 날짜는 미래여야 합니다", "error");
+        showToast("Unlock date must be in the future", "error");
         setIsCreating(false);
         return;
       }
@@ -42,7 +42,7 @@ export default function CreatePage() {
       });
       
       // Show success message
-      showToast("타임캡슐이 성공적으로 생성되었습니다", "success");
+      showToast("Time Capsule이 성공적으로 생성되었습니다", "success");
       
       // Navigate to graveyard page
       router.push("/graveyard");
@@ -51,7 +51,7 @@ export default function CreatePage() {
       const errorMessage = 
         error && typeof error === 'object' && 'message' in error 
           ? String(error.message) 
-          : "타임캡슐 생성 중 오류가 발생했습니다";
+          : "Time Capsule 생성 중 오류가 발생했습니다";
       
       showToast(errorMessage, "error");
       setIsCreating(false);
@@ -112,7 +112,7 @@ export default function CreatePage() {
               <div className="space-y-6 animate-fade-in">
                 <div>
                   <label className="block font-cinzel text-stone-300 mb-2">
-                    타임캡슐 제목
+                    Time Capsule 제목
                   </label>
                   <input
                     type="text"
@@ -184,8 +184,8 @@ export default function CreatePage() {
                   </h4>
                   <div className="space-y-2 text-stone-400 text-sm">
                     <p>제목: {title}</p>
-                    <p>부활일: {selectedDate}</p>
-                    <p>파일: {files.length}개</p>
+                    <p>Resurrected on: {selectedDate}</p>
+                    <p>파days: {files.length}개</p>
                   </div>
                 </div>
 
