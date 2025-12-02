@@ -68,14 +68,32 @@ export function ContentViewer({
               </div>
             </div>
           ) : (
-            <div className="bg-amber-50/50 border-2 border-amber-900/20 rounded-lg p-6">
-              <h3 className="font-cinzel text-xl text-amber-900 mb-4">
-                Message from the past
-              </h3>
-              <p className="text-amber-800 whitespace-pre-wrap leading-relaxed">
-                {message}
-              </p>
-            </div>
+            <>
+              <div className="bg-amber-50/50 border-2 border-amber-900/20 rounded-lg p-6">
+                <h3 className="font-cinzel text-xl text-amber-900 mb-4">
+                  Message from the past
+                </h3>
+                <p className="text-amber-800 whitespace-pre-wrap leading-relaxed">
+                  {message}
+                </p>
+              </div>
+
+              {/* TTS Audio Player */}
+              {timeCapsule.audioUrl && (
+                <div className="bg-amber-50/50 border-2 border-amber-900/20 rounded-lg p-6">
+                  <h3 className="font-cinzel text-xl text-amber-900 mb-4 flex items-center gap-2">
+                    <span>🎙️</span>
+                    Voice from the Past
+                  </h3>
+                  <audio controls className="w-full" src={timeCapsule.audioUrl}>
+                    Your browser does not support the audio element.
+                  </audio>
+                  <p className="text-amber-600 text-xs mt-2 italic">
+                    * AI-generated voice reading of your message
+                  </p>
+                </div>
+              )}
+            </>
           )}
 
           {/* Files - Only show if unlocked */}

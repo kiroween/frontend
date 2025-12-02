@@ -2,11 +2,11 @@
  * Time Capsule related types
  */
 
-export type TimeCapsuleStatus = 'locked' | 'unlocked' | 'expired';
+export type TimeCapsuleStatus = "locked" | "unlocked" | "expired";
 
-export type CollaboratorRole = 'owner' | 'editor' | 'viewer';
+export type CollaboratorRole = "owner" | "editor" | "viewer";
 
-export type ContentType = 'text' | 'image' | 'video' | 'file';
+export type ContentType = "text" | "image" | "video" | "file";
 
 export interface TimeCapsuleContent {
   id: string;
@@ -41,6 +41,7 @@ export interface TimeCapsule {
   shareUrl?: string;
   shareId?: string;
   isPublic: boolean;
+  audioUrl?: string; // TTS audio URL from backend
 }
 
 export interface CreateTimeCapsuleRequest {
@@ -61,7 +62,7 @@ export interface UpdateTimeCapsuleRequest {
 
 export interface ShareTimeCapsuleRequest {
   timeCapsuleId: string;
-  permissions: 'view' | 'edit';
+  permissions: "view" | "edit";
   expiresAt?: Date;
 }
 
