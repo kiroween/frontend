@@ -30,7 +30,8 @@ export default function LoginPage() {
       router.push("/graveyard");
     } catch (err: unknown) {
       // Display error message
-      setError(err.message || "Login failed. Please try again.");
+      const errorMsg = err instanceof Error ? err.message : String(err);
+      setError(errorMsg || "Login failed. Please try again.");
     } finally {
       setIsLoading(false);
     }
