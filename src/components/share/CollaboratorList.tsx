@@ -103,7 +103,8 @@ export function CollaboratorList({
               {collaborator.email}
             </p>
             <p className="text-stone-600 text-xs mt-1">
-              Joined: {new Date(collaborator.joinedAt).toLocaleDateString("ko-KR")}
+              Joined:{" "}
+              {new Date(collaborator.joinedAt).toLocaleDateString("en-US")}
             </p>
           </div>
 

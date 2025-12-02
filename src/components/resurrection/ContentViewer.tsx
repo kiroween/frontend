@@ -18,10 +18,10 @@ export function ContentViewer({
   onDownload,
   onShare,
 }: ContentViewerProps) {
-  const isLocked = timeCapsule.status === 'locked';
+  const isLocked = timeCapsule.status === "locked";
   const title = timeCapsule.title;
   const message = timeCapsule.description;
-  const date = timeCapsule.createdAt.toLocaleDateString('ko-KR');
+  const date = timeCapsule.createdAt.toLocaleDateString("en-US");
   const files = timeCapsule.contents;
   return (
     <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
@@ -36,11 +36,9 @@ export function ContentViewer({
             <h2 className="font-cinzel text-4xl text-amber-900 mb-2">
               {title}
             </h2>
-            <p className="text-amber-700 text-sm">
-              Sealed on: {date}
-            </p>
+            <p className="text-amber-700 text-sm">Sealed on: {date}</p>
             <p className="text-amber-600 text-xs mt-1">
-              Resurrected on: {new Date().toLocaleDateString("ko-KR")}
+              Resurrected on: {new Date().toLocaleDateString("en-US")}
             </p>
           </div>
 
@@ -64,7 +62,8 @@ export function ContentViewer({
                   </div>
                 )}
                 <p className="text-stone-500 text-sm">
-                  Unlock date: {timeCapsule.openDate.toLocaleDateString('ko-KR')}
+                  Unlock date:{" "}
+                  {timeCapsule.openDate.toLocaleDateString("en-US")}
                 </p>
               </div>
             </div>
@@ -93,15 +92,13 @@ export function ContentViewer({
                   >
                     <div className="flex items-center gap-3">
                       <div className="text-3xl">
-                        {file.type === 'image' ? "🖼️" : "📄"}
+                        {file.type === "image" ? "🖼️" : "📄"}
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-amber-900 font-medium truncate">
                           {file.name}
                         </p>
-                        <p className="text-amber-700 text-xs">
-                          {file.type}
-                        </p>
+                        <p className="text-amber-700 text-xs">{file.type}</p>
                       </div>
                     </div>
                   </div>

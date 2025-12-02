@@ -14,9 +14,9 @@ export function TombstoneCard({
   daysRemaining,
   onOpen,
 }: TombstoneCardProps) {
-  const locked = timeCapsule.status === 'locked';
+  const locked = timeCapsule.status === "locked";
   const daysLeft = daysRemaining || 0;
-  const date = timeCapsule.openDate.toLocaleDateString('ko-KR');
+  const date = timeCapsule.openDate.toLocaleDateString("en-US");
   const title = timeCapsule.title;
   return (
     <div
@@ -89,12 +89,7 @@ export function TombstoneCard({
       {/* Action Button */}
       {!locked && (
         <div className="text-center">
-          <Button
-            variant="seal"
-            size="md"
-            onClick={onOpen}
-            className="w-full"
-          >
+          <Button variant="seal" size="md" onClick={onOpen} className="w-full">
             부활하기
           </Button>
         </div>

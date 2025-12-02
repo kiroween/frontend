@@ -38,11 +38,33 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // Check for existing token on mount
   useEffect(() => {
     const token = tokenStorage.getToken();
+
     if (token) {
       // Set token in API client
       apiClient.setAuthToken(token);
-      // TODO: Optionally fetch user info from backend
-      // For now, we'll set isAuthenticated based on token presence
+
+      // Restore user info from localStorage
+      if (typeof window !== "undefined") {
+        const storedUser = localStorage.getItem("timegrave_user");
+
+        if (storedUser) {
+          try {
+            const parsedUser = JSON.parse(storedUser);
+            setUser(parsedUser);
+          } catch (error) {
+            console.error("Failed to parse stored user:", error);
+            // If user data is corrupted, clear everything
+            tokenStorage.removeToken();
+            localStorage.removeItem("timegrave_user");
+            apiClient.removeAuthToken();
+          }
+        } else {
+          // Token exists but no user data - clear token and require re-login
+          console.warn("Token found but no user data. Please log in again.");
+          tokenStorage.removeToken();
+          apiClient.removeAuthToken();
+        }
+      }
     }
     setIsLoading(false);
   }, []);
@@ -60,14 +82,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signIn = useCallback(async (data: SignInRequest) => {
     try {
-      console.log("Attempting sign in with:", { email: data.email });
       const response = await authApi.signIn(data);
-      console.log("Sign in response:", response);
-
       const authData: AuthResponse = response.data;
 
       // Store token in localStorage
       tokenStorage.setToken(authData.sessionToken, authData.expiresAt);
+
+      // Store user info in localStorage
+      if (typeof window !== "undefined") {
+        localStorage.setItem("timegrave_user", JSON.stringify(authData.user));
+      }
 
       // Set token in API client for subsequent requests
       apiClient.setAuthToken(authData.sessionToken);
@@ -76,7 +100,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(authData.user);
     } catch (error) {
       console.error("Sign in failed:", error);
-      console.error("Error details:", JSON.stringify(error, null, 2));
       throw error;
     }
   }, []);
@@ -92,6 +115,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // Remove token from localStorage
       tokenStorage.removeToken();
 
+      // Remove user info from localStorage
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("timegrave_user");
+      }
+
       // Remove token from API client
       apiClient.removeAuthToken();
 
@@ -106,6 +134,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       // Remove token from localStorage
       tokenStorage.removeToken();
+
+      // Remove user info from localStorage
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("timegrave_user");
+      }
 
       // Remove token from API client
       apiClient.removeAuthToken();

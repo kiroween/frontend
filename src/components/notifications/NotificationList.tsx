@@ -2,14 +2,14 @@
 
 import { useNotifications } from "@/contexts/NotificationContext";
 import { Button } from "@/components/ui/Button";
-import { 
-  Bell, 
-  Gift, 
-  UserPlus, 
-  Clock, 
+import {
+  Bell,
+  Gift,
+  UserPlus,
+  Clock,
   Users,
   CheckCheck,
-  X 
+  X,
 } from "lucide-react";
 import { NotificationType } from "@/lib/types";
 import Link from "next/link";
@@ -19,7 +19,8 @@ interface NotificationListProps {
 }
 
 export function NotificationList({ onClose }: NotificationListProps) {
-  const { notifications, markAsRead, markAllAsRead, isLoading } = useNotifications();
+  const { notifications, markAsRead, markAllAsRead, isLoading } =
+    useNotifications();
 
   const getNotificationIcon = (type: NotificationType) => {
     switch (type) {
@@ -39,17 +40,19 @@ export function NotificationList({ onClose }: NotificationListProps) {
     }
   };
 
-  const handleNotificationClick = async (notification: typeof notifications[0]) => {
+  const handleNotificationClick = async (
+    notification: (typeof notifications)[0]
+  ) => {
     if (!notification.isRead) {
       await markAsRead(notification.id);
     }
-    
+
     if (notification.actionUrl) {
       window.location.href = notification.actionUrl;
     } else if (notification.timeCapsuleId) {
       window.location.href = `/view/${notification.timeCapsuleId}`;
     }
-    
+
     onClose?.();
   };
 
@@ -72,7 +75,7 @@ export function NotificationList({ onClose }: NotificationListProps) {
       <div className="p-4 border-b border-stone-700 flex items-center justify-between">
         <h3 className="font-cinzel text-lg text-stone-200">알림</h3>
         <div className="flex items-center gap-2">
-          {notifications.some(n => !n.isRead) && (
+          {notifications.some((n) => !n.isRead) && (
             <Button
               onClick={handleMarkAllAsRead}
               variant="ghost"
@@ -121,16 +124,20 @@ export function NotificationList({ onClose }: NotificationListProps) {
                   {/* Content */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2 mb-1">
-                      <h4 className={`text-sm font-medium ${
-                        !notification.isRead ? "text-stone-200" : "text-stone-400"
-                      }`}>
+                      <h4
+                        className={`text-sm font-medium ${
+                          !notification.isRead
+                            ? "text-stone-200"
+                            : "text-stone-400"
+                        }`}
+                      >
                         {notification.title}
                       </h4>
                       {!notification.isRead && (
                         <span className="flex-shrink-0 w-2 h-2 bg-soul-blue rounded-full mt-1"></span>
                       )}
                     </div>
-                    
+
                     <p className="text-sm text-stone-500 mb-2">
                       {notification.message}
                     </p>
@@ -175,9 +182,9 @@ function formatRelativeTime(date: Date): string {
   const days = Math.floor(hours / 24);
 
   if (days > 7) {
-    return new Date(date).toLocaleDateString("ko-KR");
+    return new Date(date).toLocaleDateString("en-US");
   } else if (days > 0) {
-    return `${days}days 전`;
+    return `${days} days ago`;
   } else if (hours > 0) {
     return `${hours}시간 전`;
   } else if (minutes > 0) {
