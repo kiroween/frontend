@@ -28,10 +28,11 @@ export default function LoginPage() {
       await signIn(formData);
       // Success - redirect to graveyard page
       router.push("/graveyard");
-    } catch (err: unknown) {
+    } catch (err: any) {
       // Display error message
-      const errorMsg = err instanceof Error ? err.message : String(err);
-      setError(errorMsg || "Login failed. Please try again.");
+      // Handle ApiError object which has a message property
+      const errorMsg = err?.message || "Login failed. Please try again.";
+      setError(errorMsg);
     } finally {
       setIsLoading(false);
     }
