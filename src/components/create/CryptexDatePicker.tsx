@@ -69,7 +69,7 @@ export function CryptexDatePicker({ onDateChange }: CryptexDatePickerProps) {
             className="cryptex-select"
           >
             {years.map((y) => (
-              <option key={y} value={y}>
+              <option key={y} value={y} className="text-black bg-white">
                 {y}
               </option>
             ))}
@@ -85,7 +85,7 @@ export function CryptexDatePicker({ onDateChange }: CryptexDatePickerProps) {
             className="cryptex-select"
           >
             {months.map((m) => (
-              <option key={m} value={m}>
+              <option key={m} value={m} className="text-black bg-white">
                 {String(m).padStart(2, "0")}
               </option>
             ))}
@@ -101,7 +101,7 @@ export function CryptexDatePicker({ onDateChange }: CryptexDatePickerProps) {
             className="cryptex-select"
           >
             {days.map((d) => (
-              <option key={d} value={d}>
+              <option key={d} value={d} className="text-black bg-white">
                 {String(d).padStart(2, "0")}
               </option>
             ))}
