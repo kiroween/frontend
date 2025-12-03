@@ -11,8 +11,15 @@ export function Header() {
 
   const handleSignOut = async () => {
     try {
-      await signOut();
+      // 먼저 홈으로 이동합니다.
       router.push("/");
+
+      // 페이지 이동이 처리될 시간을 확보하기 위해 약간의 지연 후 로그아웃을 수행합니다.
+      // 이렇게 하면 현재 페이지(Graveyard 등)가 인증 해제 상태를 감지하고
+      // 로그인 페이지로 리다이렉트하는 것을 방지할 수 있습니다.
+      setTimeout(async () => {
+        await signOut();
+      }, 100);
     } catch (error) {
       console.error("Sign out failed:", error);
     }
