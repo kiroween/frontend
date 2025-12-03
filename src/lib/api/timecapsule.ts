@@ -15,10 +15,6 @@ import {
   ApiResponse,
 } from "../types";
 
-// Determine if we should use mock API
-const useMock =
-  process.env.NODE_ENV === "development" && !process.env.NEXT_PUBLIC_API_URL;
-
 export const timeCapsuleApi = {
   /**
    * Create a new time capsule
@@ -26,10 +22,6 @@ export const timeCapsuleApi = {
   create: async (
     data: CreateTimeCapsuleRequest
   ): Promise<ApiResponse<TimeCapsule>> => {
-    if (useMock) {
-      return mockTimeCapsuleApi.create(data);
-    }
-
     return apiClient.post<TimeCapsule>("/api/timecapsules", data);
   },
 
@@ -37,10 +29,6 @@ export const timeCapsuleApi = {
    * Get a time capsule by ID
    */
   getById: async (id: string): Promise<ApiResponse<TimeCapsule>> => {
-    if (useMock) {
-      return mockTimeCapsuleApi.getById(id);
-    }
-
     return apiClient.get<TimeCapsule>(`/api/timecapsules/${id}`);
   },
 
@@ -48,10 +36,6 @@ export const timeCapsuleApi = {
    * Get all time capsules for the current user
    */
   getAll: async (): Promise<ApiResponse<TimeCapsule[]>> => {
-    if (useMock) {
-      return mockTimeCapsuleApi.getAll();
-    }
-
     return apiClient.get<TimeCapsule[]>("/api/timecapsules");
   },
 
@@ -62,11 +46,6 @@ export const timeCapsuleApi = {
     id: string,
     data: UpdateTimeCapsuleRequest
   ): Promise<ApiResponse<TimeCapsule>> => {
-    if (useMock) {
-      // Mock implementation would go here
-      throw new Error("Not implemented in mock");
-    }
-
     return apiClient.put<TimeCapsule>(`/api/timecapsules/${id}`, data);
   },
 
@@ -74,10 +53,6 @@ export const timeCapsuleApi = {
    * Delete a time capsule
    */
   delete: async (id: string): Promise<ApiResponse<{ success: boolean }>> => {
-    if (useMock) {
-      return mockTimeCapsuleApi.delete(id);
-    }
-
     return apiClient.delete<{ success: boolean }>(`/api/timecapsules/${id}`);
   },
 
@@ -87,10 +62,6 @@ export const timeCapsuleApi = {
   share: async (
     data: ShareTimeCapsuleRequest
   ): Promise<ApiResponse<ShareTimeCapsuleResponse>> => {
-    if (useMock) {
-      return mockTimeCapsuleApi.share(data);
-    }
-
     return apiClient.post<ShareTimeCapsuleResponse>(
       "/api/timecapsules/share",
       data
@@ -103,11 +74,6 @@ export const timeCapsuleApi = {
   inviteCollaborator: async (
     data: InviteCollaboratorRequest
   ): Promise<ApiResponse<{ success: boolean }>> => {
-    if (useMock) {
-      // Mock implementation would go here
-      throw new Error("Not implemented in mock");
-    }
-
     return apiClient.post<{ success: boolean }>(
       "/api/timecapsules/invite",
       data
@@ -120,11 +86,6 @@ export const timeCapsuleApi = {
   removeCollaborator: async (
     data: RemoveCollaboratorRequest
   ): Promise<ApiResponse<{ success: boolean }>> => {
-    if (useMock) {
-      // Mock implementation would go here
-      throw new Error("Not implemented in mock");
-    }
-
     return apiClient.post<{ success: boolean }>(
       "/api/timecapsules/remove-collaborator",
       data

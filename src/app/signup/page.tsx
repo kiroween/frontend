@@ -31,7 +31,7 @@ export default function SignUpPage() {
       router.push("/login");
     } catch (err: unknown) {
       // Display error message
-      setError(err.message || "Sign up failed. Please try again.");
+      setError(err instanceof Error ? err.message : "Sign up failed. Please try again.");
     } finally {
       setIsLoading(false);
     }
